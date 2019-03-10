@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+>
+
+<channel>
+	<title>load &#8211; Raz</title>
+	<atom:link href="https://blog.razb.me/tag/load/feed/" rel="self" type="application/rss+xml" />
+	<link>https://blog.razb.me</link>
+	<description>Computer stuff</description>
+	<lastBuildDate>Sun, 13 Jan 2019 01:25:31 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.0.3</generator>
+
+<image>
+	<url>https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/04/cropped-Untitled.png?fit=32%2C32&#038;ssl=1</url>
+	<title>load &#8211; Raz</title>
+	<link>https://blog.razb.me</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">108306310</site>	<item>
+		<title>Ghost Classes</title>
+		<link>https://blog.razb.me/hello-world/</link>
+		<comments>https://blog.razb.me/hello-world/#respond</comments>
+		<pubDate>Sat, 12 Mar 2016 06:01:33 +0000</pubDate>
+		<dc:creator><![CDATA[Raz]]></dc:creator>
+				<category><![CDATA[Objective-C]]></category>
+		<category><![CDATA[classes]]></category>
+		<category><![CDATA[ghost]]></category>
+		<category><![CDATA[load]]></category>
+		<category><![CDATA[objective-c]]></category>
+		<category><![CDATA[runtime]]></category>
+		<category><![CDATA[selector]]></category>
+		<category><![CDATA[tips]]></category>
+		<category><![CDATA[tricks]]></category>
+
+		<guid isPermaLink="false">http://razb.me/?p=1</guid>
+		<description><![CDATA[By exploiting a property of the Objective-C runtime, it’s possible to have a class living and breathing in memory without it ever have been imported, allocated, nor initialized anywhere else in the code base. The property in question is the +load message that is sent to every NSObject shortly after<a class="moretag" href="https://blog.razb.me/hello-world/"> Read more&#8230;</a>]]></description>
+				<content:encoded><![CDATA[<p>By exploiting a property of the Objective-C runtime, it’s possible to have a class living and breathing in memory without it ever have been imported, allocated, nor initialized anywhere else in the code base. The property in question is the +load message that is sent to every NSObject shortly after a class is loaded into memory. Consider the following implementation of a hypothetical class called MyClass:</p><pre class="crayon-plain-tag">@implementation MyClass
+
++ (void)load {
+    [[self sharedInstance] run];
+}
+
++ (instancetype)sharedInstance {
+    static MyClass *sharedClass;
+    static dispatch_once_t onceToken;
+    dispatch_once(&amp;onceToken, ^{
+        sharedClass = [self new];
+    });
+    return sharedClass;
+}
+
+- (void)run {
+    // Do stuff
+}
+
+@end</pre><p>Upon MyClass getting loaded into memory, +load is called by the runtime, which allocates, instantiates, and retains an instance of MyClass and then calls -run to do some arbitrary work. MyClass is not #imported from anywhere else, and it is also not retained by anyone else either. It’s there but you can’t see it.</p>
+<p>In practice this is probably a bad idea because of the sneaky nature of things. So have a good reason before deciding to use something like this.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://blog.razb.me/hello-world/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+	<post-id xmlns="com-wordpress:feed-additions:1">1</post-id>	</item>
+	</channel>
+</rss>

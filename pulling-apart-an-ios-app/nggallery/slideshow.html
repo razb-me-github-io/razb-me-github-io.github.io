@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset='UTF-8'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../../cdn-cgi/apps/head/1BY2f2zT8KygC6POfiT9T-bUTpY.js"></script><link rel="profile" href="https://gmpg.org/xfn/11">
+<link rel="pingback" href="https://blog.razb.me/xmlrpc.php">
+<title>Pulling apart an iOS App &#8211; Raz</title>
+<link rel='dns-prefetch' href='https://s0.wp.com/' />
+<link rel='dns-prefetch' href='https://maxcdn.bootstrapcdn.com/' />
+<link rel='dns-prefetch' href='https://fonts.googleapis.com/' />
+<link rel='dns-prefetch' href='https://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="Raz &raquo; Feed" href="../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Raz &raquo; Comments Feed" href="../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Raz &raquo; Pulling apart an iOS App Comments Feed" href="../feed/index.html" />
+<script type="1463d25926874d768e7525bc-text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/blog.razb.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.0.3"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+<link rel='stylesheet' id='crayon-css' href='../../wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css%3Fver=_2.7.2_beta.css' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-theme-classic-css' href='../../wp-content/plugins/crayon-syntax-highlighter/themes/classic/classic.css%3Fver=_2.7.2_beta.css' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-font-monaco-css' href='../../wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css%3Fver=_2.7.2_beta.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css' href='../../wp-includes/css/dist/block-library/style.min.css%3Fver=5.0.3.css' type='text/css' media='all' />
+<link rel='stylesheet' id='hestia-clients-bar-css' href='../../wp-content/plugins/themeisle-companion/obfx_modules/companion-legacy/assets/css/hestia/clients-bar.css%3Fver=5.0.3.css' type='text/css' media='all' />
+<link rel='stylesheet' id='dashicons-css' href='../../wp-includes/css/dashicons.min.css%3Fver=5.0.3.css' type='text/css' media='all' />
+<link rel='stylesheet' id='obfx-module-pub-css-menu-icons-0-css' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css?ver=2.7.3' type='text/css' media='all' />
+<link rel='stylesheet' id='obfx-module-pub-css-menu-icons-1-css' href='../../wp-content/plugins/themeisle-companion/obfx_modules/menu-icons/css/public.css%3Fver=2.7.3.css' type='text/css' media='all' />
+<link rel='stylesheet' id='bootstrap-css' href='../../wp-content/themes/hestia/assets/bootstrap/css/bootstrap.min.css%3Fver=1.0.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-css' href='../../wp-content/themes/hestia/assets/font-awesome/css/font-awesome.min.css%3Fver=1.0.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='hestia-font-sizes-css' href='../../wp-content/themes/hestia/assets/css/font-sizes.css%3Fver=1.1.71.css' type='text/css' media='all' />
+<link rel='stylesheet' id='hestia_style-css' href='../../wp-content/themes/hestia/style.css%3Fver=1.1.71.css' type='text/css' media='all' />
+<style id='hestia_style-inline-css' type='text/css'>
+
+
+.header-filter.header-filter-gradient:before {
+	background-color: transparent;
+} 	
+a, 
+.navbar .dropdown-menu li:hover > a,
+.navbar .dropdown-menu li:focus > a,
+.navbar .dropdown-menu li:active > a,
+.navbar.navbar-not-transparent .nav > li:not(.btn).on-section > a, 
+.navbar.navbar-not-transparent .nav > li.on-section:not(.btn) > a, 
+.navbar.navbar-not-transparent .nav > li.on-section:not(.btn):hover > a, 
+.navbar.navbar-not-transparent .nav > li.on-section:not(.btn):focus > a, 
+.navbar.navbar-not-transparent .nav > li.on-section:not(.btn):active > a, 
+body:not(.home) .navbar-default .navbar-nav > .active:not(.btn) > a,
+body:not(.home) .navbar-default .navbar-nav > .active:not(.btn) > a:hover,
+body:not(.home) .navbar-default .navbar-nav > .active:not(.btn) > a:focus,
+.hestia-blogs article:nth-child(6n+1) .category a, a:hover, .card-blog a.moretag:hover, .card-blog a.more-link:hover, .widget a:hover {
+    color:#e91e63;
+}
+
+.pagination span.current, .pagination span.current:focus, .pagination span.current:hover {
+	border-color:#e91e63
+}
+           
+button,
+button:hover,           
+input[type="button"],
+input[type="button"]:hover,
+input[type="submit"],
+input[type="submit"]:hover,
+input#searchsubmit, 
+.pagination span.current, 
+.pagination span.current:focus, 
+.pagination span.current:hover,
+.btn.btn-primary,
+.btn.btn-primary:link,
+.btn.btn-primary:hover, 
+.btn.btn-primary:focus, 
+.btn.btn-primary:active, 
+.btn.btn-primary.active, 
+.btn.btn-primary.active:focus, 
+.btn.btn-primary.active:hover,
+.btn.btn-primary:active:hover, 
+.btn.btn-primary:active:focus, 
+.btn.btn-primary:active:hover,
+.hestia-sidebar-open.btn.btn-rose,
+.hestia-sidebar-close.btn.btn-rose,
+.hestia-sidebar-open.btn.btn-rose:hover,
+.hestia-sidebar-close.btn.btn-rose:hover,
+.hestia-sidebar-open.btn.btn-rose:focus,
+.hestia-sidebar-close.btn.btn-rose:focus,
+.label.label-primary,
+.hestia-work .portfolio-item:nth-child(6n+1) .label,
+.nav-cart .nav-cart-content .widget .buttons .button{
+    background-color: #e91e63;
+}
+
+@media (max-width: 768px) { 
+	
+	.navbar-default .navbar-nav>li>a:hover,
+	.navbar-default .navbar-nav>li>a:focus,
+	.navbar .navbar-nav .dropdown .dropdown-menu li a:hover,
+	.navbar .navbar-nav .dropdown .dropdown-menu li a:focus,
+	.navbar button.navbar-toggle:hover,
+	.navbar .navbar-nav li:hover > a i {
+	    color: #e91e63;
+	}
+}
+
+button,
+.button,
+input[type="submit"], 
+input[type="button"], 
+.btn.btn-primary,
+.hestia-sidebar-open.btn.btn-rose,
+.hestia-sidebar-close.btn.btn-rose {
+    -webkit-box-shadow: 0 2px 2px 0 rgba(233,30,99,0.14),0 3px 1px -2px rgba(233,30,99,0.2),0 1px 5px 0 rgba(233,30,99,0.12);
+    box-shadow: 0 2px 2px 0 rgba(233,30,99,0.14),0 3px 1px -2px rgba(233,30,99,0.2),0 1px 5px 0 rgba(233,30,99,0.12);
+}
+
+.card .header-primary, .card .content-primary {
+    background: #e91e63;
+}
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+input#searchsubmit:hover, 
+.pagination span.current, 
+.btn.btn-primary:hover, 
+.btn.btn-primary:focus, 
+.btn.btn-primary:active, 
+.btn.btn-primary.active, 
+.btn.btn-primary:active:focus, 
+.btn.btn-primary:active:hover, 
+.hestia-sidebar-open.btn.btn-rose:hover,
+.hestia-sidebar-close.btn.btn-rose:hover,
+.pagination span.current:hover{
+	-webkit-box-shadow: 0 14px 26px -12pxrgba(233,30,99,0.42),0 4px 23px 0 rgba(0,0,0,0.12),0 8px 10px -5px rgba(233,30,99,0.2);
+    box-shadow: 0 14px 26px -12px rgba(233,30,99,0.42),0 4px 23px 0 rgba(0,0,0,0.12),0 8px 10px -5px rgba(233,30,99,0.2);
+	color: #fff;
+}
+.form-group.is-focused .form-control {
+background-image: -webkit-gradient(linear,left top, left bottom,from(#e91e63),to(#e91e63)),-webkit-gradient(linear,left top, left bottom,from(#d2d2d2),to(#d2d2d2));
+	background-image: -webkit-linear-gradient(#e91e63),to(#e91e63),-webkit-linear-gradient(#d2d2d2,#d2d2d2);
+	background-image: linear-gradient(#e91e63),to(#e91e63),linear-gradient(#d2d2d2,#d2d2d2);
+}
+ .navbar:not(.navbar-transparent) li:not(.btn):hover > a,
+ .navbar.full-screen-menu.navbar-transparent li:not(.btn):hover > a,
+ .navbar.full-screen-menu .navbar-toggle:hover,
+ .navbar:not(.navbar-transparent) .nav-cart:hover, 
+ .navbar:not(.navbar-transparent) .hestia-toggle-search:hover {
+		 color:#e91e63}
+.header-filter-gradient { 
+	background: linear-gradient(45deg, rgb(168,29,132) 0%, rgb(234,57,111) 100%); 
+} 
+.hestia-top-bar, .hestia-top-bar .widget.widget_shopping_cart .cart_list {
+			background-color: #363537
+		}
+		.hestia-top-bar .widget .label-floating input[type=search]:-webkit-autofill {
+			-webkit-box-shadow: inset 0 0 0px 9999px #363537
+		}.hestia-top-bar, .hestia-top-bar .widget .label-floating input[type=search], .hestia-top-bar .widget.widget_search form.form-group:before, .hestia-top-bar .widget.widget_product_search form.form-group:before, .hestia-top-bar .widget.widget_shopping_cart:before {
+			color: #ffffff
+		} 
+		.hestia-top-bar .widget .label-floating input[type=search]{
+			-webkit-text-fill-color:#ffffff !important 
+		}.hestia-top-bar a, .hestia-top-bar .top-bar-nav li a {
+			color: #ffffff
+		}.hestia-top-bar a:hover, .hestia-top-bar .top-bar-nav li a:hover {
+			color: #eeeeee
+		}
+
+		.page-template-builder-fullwidth-std .header > .elementor {
+			padding-top: 70px;
+		}
+
+</style>
+<link rel='stylesheet' id='hestia_fonts-css' href='https://fonts.googleapis.com/css?family=Roboto%3A300%2C400%2C500%2C700%7CRoboto+Slab%3A400%2C700&#038;subset=latin%2Clatin-ext&#038;ver=1.1.71' type='text/css' media='all' />
+
+<link rel='stylesheet' id='jetpack_css-css' href='../../wp-content/plugins/jetpack/css/jetpack.css%3Fver=6.8.1.css' type='text/css' media='all' />
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-includes/js/jquery/jquery.js%3Fver=1.12.4'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-includes/js/jquery/jquery-migrate.min.js%3Fver=1.4.1'></script>
+<script type="1463d25926874d768e7525bc-text/javascript">
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+/* ]]> */
+</script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/jetpack/_inc/build/related-posts/related-posts.min.js%3Fver=20150408'></script>
+<script type="1463d25926874d768e7525bc-text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/blog.razb.me\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js%3Fver=_2.7.2_beta'></script>
+<link rel='https://api.w.org/' href='../../wp-json/index.html' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../xmlrpc.php%3Frsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../../wp-includes/wlwmanifest.xml" />
+<link rel='prev' title='Taylor Swift&#8217;s new app &#8220;The Swift Life™&#8221; was not written in Swift' href='../../taylor-swifts-new-app-the-swift-life-was-not-written-in-swift/index.html' />
+<link rel='next' title='Spoofing URL previews' href='../../spoofing-url-previews/index.html' />
+<meta name="generator" content="WordPress 5.0.3" />
+<link rel="canonical" href="../index.html" />
+<link rel='shortlink' href='https://wp.me/p7krpY-2A' />
+<link rel="alternate" type="application/json+oembed" href="../../wp-json/oembed/1.0/embed%3Furl=https:%252F%252Fblog.razb.me%252Fpulling-apart-an-ios-app%252F" />
+<link rel="alternate" type="text/xml+oembed" href="../../wp-json/oembed/1.0/embed%3Furl=https:%252F%252Fblog.razb.me%252Fpulling-apart-an-ios-app%252F&amp;format=xml" />
+
+<link rel='dns-prefetch' href='https://v0.wordpress.com/' />
+<link rel='dns-prefetch' href='https://i0.wp.com/' />
+<link rel='dns-prefetch' href='https://i1.wp.com/' />
+<link rel='dns-prefetch' href='https://i2.wp.com/' />
+<style type='text/css'>img#wpstats{display:none}</style>
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Pulling apart an iOS App" />
+<meta property="og:url" content="https://blog.razb.me/pulling-apart-an-ios-app/" />
+<meta property="og:description" content="The App Store Since its initial release on July 10, 2008, the iOS App Store has amassed over 2.2 million apps. Combine that with a study by Nielsen in 2015 which shows that the average smartphone u…" />
+<meta property="article:published_time" content="2017-12-29T20:38:13+00:00" />
+<meta property="article:modified_time" content="2017-12-30T02:36:27+00:00" />
+<meta property="og:site_name" content="Raz" />
+<meta property="og:image" content="https://i0.wp.com/blog.razb.me/wp-content/uploads/2017/12/9395383259_3ee6e19bb5_b.jpg?fit=1024%2C576&amp;ssl=1" />
+<meta property="og:image:width" content="1024" />
+<meta property="og:image:height" content="576" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:text:title" content="Pulling apart an iOS App" />
+<meta name="twitter:image" content="https://i0.wp.com/blog.razb.me/wp-content/uploads/2017/12/9395383259_3ee6e19bb5_b.jpg?fit=1024%2C576&#038;ssl=1&#038;w=640" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="icon" href="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/04/cropped-Untitled.png?fit=32%2C32&#038;ssl=1" sizes="32x32" />
+<link rel="icon" href="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/04/cropped-Untitled.png?fit=192%2C192&#038;ssl=1" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/04/cropped-Untitled.png?fit=180%2C180&#038;ssl=1" />
+<meta name="msapplication-TileImage" content="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/04/cropped-Untitled.png?fit=270%2C270&#038;ssl=1" />
+
+<script type="1463d25926874d768e7525bc-text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-47022454-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+<!--[if lte IE 8]>
+<link rel='stylesheet' id='jetpack-carousel-ie8fix-css'  href='https://blog.razb.me/wp-content/plugins/jetpack/modules/carousel/jetpack-carousel-ie8fix.css?ver=20121024' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='ngg_trigger_buttons-css' href='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_gallery_display/static/trigger_buttons.min.css%3Fver=3.1.4.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fancybox-0-css' href='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/lightbox/static/fancybox/jquery.fancybox-1.3.4.min.css%3Fver=3.1.4.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fontawesome_v4_shim_style-css' href='https://use.fontawesome.com/releases/v5.3.1/css/v4-shims.css?ver=5.0.3' type='text/css' media='all' />
+<link rel='stylesheet' id='fontawesome-css' href='https://use.fontawesome.com/releases/v5.3.1/css/all.css?ver=5.0.3' type='text/css' media='all' />
+<link rel='stylesheet' id='nextgen_basic_thumbnails_style-css' href='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_basic_gallery/static/thumbnails/nextgen_basic_thumbnails.min.css%3Fver=3.1.4.css' type='text/css' media='all' />
+<link rel='stylesheet' id='nextgen_pagination_style-css' href='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_pagination/static/style.min.css%3Fver=3.1.4.css' type='text/css' media='all' />
+<link rel='stylesheet' id='ngg_basic_slideshow_style-css' href='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_basic_gallery/static/slideshow/ngg_basic_slideshow.min.css%3Fver=3.1.4.css' type='text/css' media='all' />
+<link rel='stylesheet' id='ngg_slick_slideshow_style-css' href='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_basic_gallery/static/slideshow/slick/slick.min.css%3Fver=3.1.4.css' type='text/css' media='all' />
+<link rel='stylesheet' id='ngg_slick_slideshow_theme-css' href='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_basic_gallery/static/slideshow/slick/slick-theme.min.css%3Fver=3.1.4.css' type='text/css' media='all' />
+<link rel='stylesheet' id='nggallery-css' href='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/ngglegacy/css/nggallery.css%3Fver=3.1.4.css' type='text/css' media='all' />
+</head>
+<body class="post-template-default single single-post postid-160 single-format-standard blog-post">
+<div class="wrapper post-160 post type-post status-publish format-standard has-post-thumbnail hentry category-ios category-objective-c category-swift">
+<header class="header ">
+<nav class="navbar navbar-default navbar-fixed-top  hestia_left navbar-not-transparent">
+<div class="container">
+<div class="navbar-header">
+<div class="title-logo-wrapper">
+<a class="navbar-brand" href="../../index.html" title="Raz"><p>Raz</p></a>
+</div>
+</div>
+</div>
+</nav>
+<div id="primary" class="boxed-layout-header page-header header-small" data-parallax="active">
+<div class="container">
+<div class="row">
+<div class="col-md-10 col-md-offset-1 text-center">
+<h1 class="hestia-title 
+					">Pulling apart an iOS App</h1>
+<h4 class="author">
+Published by <a href="../../author/raz/index.html" class="vcard author"><strong class="fn">Raz</strong></a> on <time class="date updated published" datetime="2017-12-29T15:38:13+00:00">December 29, 2017</time> </h4>
+</div>
+</div>
+</div>
+
+<div class="header-filter" style="background-image: url(../../wp-content/uploads/2017/12/9395383259_3ee6e19bb5_b.jpg);"></div> </div>
+</header>
+<div class="main  main-raised default">
+<div class="blog-post blog-post-wrapper">
+<div class="container">
+<div class="row">
+<div class=" col-md-8 col-md-offset-2 single-post-wrap">
+<article id="post-160" class="section section-text">
+<h1>The App Store</h1>
+<p>Since its initial release on July 10, 2008, the iOS App Store has amassed <a href="https://en.wikipedia.org/wiki/App_Store_(iOS)#Number_of_iOS_applications">over 2.2 million apps</a>. Combine that with <a href="http://www.nielsen.com/us/en/insights/news/2015/so-many-apps-so-much-more-time-for-entertainment.html">a study by Nielsen in 2015</a> which shows that the average smartphone user interacts with 10 apps a day, and 30 apps a month for a total of over 35 hours spent using apps every month, it&#8217;s safe to say that we love our apps.</p>
+<p>The way we interact with all of these apps is generally the same: download it from the App Store, find the app&#8217;s icon on your home screen, tap it and it magically opens. On the surface, there doesn&#8217;t seem much to an app. They all just sit there patiently on your home screen, icons waiting for you to tap on them and bring them to life. But have you ever wondered what actually goes on under the hood? How these apps work, and what they&#8217;re made of? Let&#8217;s take a look.</p>
+<blockquote><p><strong>Note:</strong>&nbsp;throughout this post we will be looking at specific examples from an app which I wrote: <a href="https://itunes.apple.com/us/app/rs-xchange/id1018629772">RS Xchange</a>.</p></blockquote>
+<h1>The IPA file</h1>
+<p>After finding a new app which you&#8217;d like to try out on the App Store, you press the download button and wait a little while for stuff to happen. During this time, iOS is downloading the app in the form of a file with an extension of &#8220;.ipa&#8221;. So what exactly is this &#8220;.ipa&#8221; file?</p>
+<p>&#8220;.ipa&#8221; files are actually just &#8220;.zip&#8221; files. Renaming .ipa to .zip will allow you to extract the contents of the .ipa file in much the same way you extract .zip files. After extraction, you will find a folder with the following structure:</p>
+<ul>
+<li>iTunesArtwork</li>
+<li>iTunesMetadata.plist</li>
+<li>Payload/</li>
+<li>META-INF/</li>
+</ul>
+<p>Let&#8217;s run through this from top to bottom.</p>
+<h2>iTunesArtwork</h2>
+<p>This file is actually a .png file. Adding the &#8220;.png&#8221; extension to it will allow you to open the file with your image viewing tool of choice. Upon opening the file, you will see that this is just the app&#8217;s icon as it is shown on the App Store. This image will have a size of 1024&#215;1024. Here is an example of an&nbsp;<em>iTunesArtwork</em> file:</p>
+<div id="attachment_280" style="width: 159px" class="wp-caption aligncenter"><img data-attachment-id="280" data-permalink="https://blog.razb.me/pulling-apart-an-ios-app/itunesartwork/" data-orig-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?fit=1024%2C1024&amp;ssl=1" data-orig-size="1024,1024" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="iTunesArtwork" data-image-description="&lt;p&gt;iTunesArtwork&lt;/p&gt;
+" data-medium-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?fit=300%2C300&amp;ssl=1" data-large-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?fit=750%2C750&amp;ssl=1" src="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?resize=149%2C149&#038;ssl=1" alt="iTunesArtwork" width="149" height="149" class=" wp-image-280" srcset="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?w=1024&amp;ssl=1 1024w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?resize=150%2C150&amp;ssl=1 150w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?resize=300%2C300&amp;ssl=1 300w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?resize=768%2C768&amp;ssl=1 768w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?resize=50%2C50&amp;ssl=1 50w" sizes="(max-width: 149px) 100vw, 149px" data-recalc-dims="1" /><p class="wp-caption-text">iTunesArtwork for the RS Xchange app</p></div>
+<h2>iTunesMetadata.plist</h2>
+<p>This file contains lots of information about the app, its developer, when it was downloaded, and which account it was downloaded by. This is what a sample iTunesMetadata.plist file might look like:</p>
+<p><script src="https://gist.github.com/Raztor0/815ad9ad23bcf524bdc88357d5e9a5a4.js" type="1463d25926874d768e7525bc-text/javascript"></script></p>
+<h2>Payload/</h2>
+<p>The <em>Payload/</em> folder contains the actual app binary along with all of its resources that it needs to function. Once inside the&nbsp;<em>Payoad/</em> folder, there will be a single file with the &#8220;.app&#8221; extension. This file is actually just another folder, and you can open it like any other folder. On MacOS, right click it and press &#8220;Show Package Contents&#8221;.</p>
+<p>The contents of this folder will differ from app to app. This is the stuff that defines each individual app. Here is an example of some of the things you might find:</p>
+<ul>
+<li>AppIcon29x29.png</li>
+<li><a href="../../cdn-cgi/l/email-protection.html" class="__cf_email__" data-cfemail="29685959604a46471b10511b10691b510759474e">[email&#160;protected]</a></li>
+<li><a href="../../cdn-cgi/l/email-protection.html" class="__cf_email__" data-cfemail="fcbd8c8cb59f9392cec584cec5bcce84">[email&#160;protected]</a>~ipad.png</li>
+<li><a href="../../cdn-cgi/l/email-protection.html" class="__cf_email__" data-cfemail="6021101029030f0e52591852592053184e100e07">[email&#160;protected]</a></li>
+<li>AppIcon29x29~ipad.png</li>
+<li><a href="../../cdn-cgi/l/email-protection.html" class="__cf_email__" data-cfemail="672617172e04080953571f535727551f49170900">[email&#160;protected]</a></li>
+<li><a href="../../cdn-cgi/l/email-protection.html" class="__cf_email__" data-cfemail="0f4e7f7f466c60613b3f773b3f4f3d77">[email&#160;protected]</a>~ipad.png</li>
+<li><a href="../../cdn-cgi/l/email-protection.html" class="__cf_email__" data-cfemail="2e6f5e5e674d41401a1e561a1e6e1d56005e4049">[email&#160;protected]</a></li>
+<li>AppIcon40x40~ipad.png</li>
+<li><a href="../../cdn-cgi/l/email-protection.html" class="__cf_email__" data-cfemail="85c4f5f5cce6eaebb0b5fdb0b5c5b7fd">[email&#160;protected]</a>~ipad.png</li>
+<li>AppIcon50x50~ipad.png</li>
+<li>AppIcon57x57.png</li>
+<li><a href="../../cdn-cgi/l/email-protection.html" class="__cf_email__" data-cfemail="4d0c3d3d042e2223787a35787a0d7f35633d232a">[email&#160;protected]</a></li>
+<li><a href="../../cdn-cgi/l/email-protection.html" class="__cf_email__" data-cfemail="4e0f3e3e072d2120787e36787e0e7c36603e2029">[email&#160;protected]</a></li>
+<li><a href="../../cdn-cgi/l/email-protection.html" class="__cf_email__" data-cfemail="9ddcededd4fef2f3abade5abadddaee5b3edf3fa">[email&#160;protected]</a></li>
+<li><a href="../../cdn-cgi/l/email-protection.html" class="__cf_email__" data-cfemail="2061505069434f4e1712581712601258">[email&#160;protected]</a>~ipad.png</li>
+<li>AppIcon72x72~ipad.png</li>
+<li><a href="../../cdn-cgi/l/email-protection.html" class="__cf_email__" data-cfemail="531223231a303c3d64652b646513612b">[email&#160;protected]</a>~ipad.png</li>
+<li>AppIcon76x76~ipad.png</li>
+<li>Assets.car</li>
+<li>Base.lproj/</li>
+<li>Frameworks/</li>
+<li>Info.plist</li>
+<li>ItemDetailsStoryboard.storyboardc/</li>
+<li>LaunchScreen.storyboardc/</li>
+<li>OSRSItemDetailsDescriptionTableViewCell.nib</li>
+<li>OSRSItemDetailsHeaderView.nib</li>
+<li>OSRSItemDetailsWikiaTableViewCell.nib</li>
+<li>OSRSItemSearchTableViewCell.nib</li>
+<li>PkgInfo</li>
+<li>RS Xchange</li>
+<li>SC_Info/</li>
+<li>TSMessagesDefaultDesign.json</li>
+<li>_CodeSignature/</li>
+<li>archived-expanded-entitlements.xcent</li>
+</ul>
+<p>Let&#8217;s run through them top to bottom.</p>
+<h3>AppIcon.png</h3>
+<p>First, you will notice a bunch of images named something like &#8220;AppIcon&lt;something&gt;.png&#8221;. These images correspond to, as you might have guessed, the app&#8217;s icon as you see it on your home screen. There are lots of various sizes of this icon, each one optimized for a different device and different place that it might be shown. For example, iPads have different app icon dimension requirements than iPhones, and the app icon as it is shown in a notification has a different dimension requirement than the app icon which is shown on the home screen.</p>
+<h3>Assets.car</h3>
+<p>This file contains some (or all) of the images which the app might use to display once you open it. The images are stored in an optimized format, and you need special tools to take them out and look at them one by one. One such tool which can do this is called the <a href="https://github.com/insidegui/AssetCatalogTinkerer">Asset Catalog Tinkerer</a>. Upon exporting, you will get a list of image files which you can open with your image viewing tool of choice. Here is an example of some of the images which you might find inside of the&nbsp;<em>Assets.car</em> file:</p>
+<div class="ngg-galleryoverview ngg-slideshow" id="ngg-slideshow-56c9698f78e03746c11df90fe164f916-4069998850" style="max-width: 600px; max-height: 400px;">
+<div id="ngg-image-0" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/Default_Normal.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/Default_Normal.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_Default_Normal.png" data-image-id="1" data-title="Default_Normal" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='1' title="" alt="Default_Normal" src="../../wp-content/gallery/assets-car/Default_Normal.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-1" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/Default_Normal@2x.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/Default_Normal%402x.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_Default_Normal%402x.png" data-image-id="2" data-title="Default_Normal@2x" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='2' title="" alt="Default_Normal@2x" src="../../wp-content/gallery/assets-car/Default_Normal@2x.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-2" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationBackgroundError_Normal.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationBackgroundError_Normal.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationBackgroundError_Normal.png" data-image-id="3" data-title="NotificationBackgroundError_Normal" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='3' title="" alt="NotificationBackgroundError_Normal" src="../../wp-content/gallery/assets-car/NotificationBackgroundError_Normal.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-3" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationBackgroundError_Normal@2x.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationBackgroundError_Normal%402x.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationBackgroundError_Normal%402x.png" data-image-id="4" data-title="NotificationBackgroundError_Normal@2x" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='4' title="" alt="NotificationBackgroundError_Normal@2x" src="../../wp-content/gallery/assets-car/NotificationBackgroundError_Normal@2x.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-4" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationBackgroundErrorIcon_Normal.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationBackgroundErrorIcon_Normal.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationBackgroundErrorIcon_Normal.png" data-image-id="5" data-title="NotificationBackgroundErrorIcon_Normal" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='5' title="" alt="NotificationBackgroundErrorIcon_Normal" src="../../wp-content/gallery/assets-car/NotificationBackgroundErrorIcon_Normal.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-5" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationBackgroundErrorIcon_Normal@2x.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationBackgroundErrorIcon_Normal%402x.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationBackgroundErrorIcon_Normal%402x.png" data-image-id="6" data-title="NotificationBackgroundErrorIcon_Normal@2x" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='6' title="" alt="NotificationBackgroundErrorIcon_Normal@2x" src="../../wp-content/gallery/assets-car/NotificationBackgroundErrorIcon_Normal@2x.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-6" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationBackgroundMessage_Normal.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationBackgroundMessage_Normal.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationBackgroundMessage_Normal.png" data-image-id="7" data-title="NotificationBackgroundMessage_Normal" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='7' title="" alt="NotificationBackgroundMessage_Normal" src="../../wp-content/gallery/assets-car/NotificationBackgroundMessage_Normal.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-7" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationBackgroundMessage_Normal@2x.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationBackgroundMessage_Normal%402x.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationBackgroundMessage_Normal%402x.png" data-image-id="8" data-title="NotificationBackgroundMessage_Normal@2x" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='8' title="" alt="NotificationBackgroundMessage_Normal@2x" src="../../wp-content/gallery/assets-car/NotificationBackgroundMessage_Normal@2x.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-8" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationBackgroundSuccess_Normal.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationBackgroundSuccess_Normal.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationBackgroundSuccess_Normal.png" data-image-id="9" data-title="NotificationBackgroundSuccess_Normal" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='9' title="" alt="NotificationBackgroundSuccess_Normal" src="../../wp-content/gallery/assets-car/NotificationBackgroundSuccess_Normal.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-9" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationBackgroundSuccess_Normal@2x.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationBackgroundSuccess_Normal%402x.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationBackgroundSuccess_Normal%402x.png" data-image-id="10" data-title="NotificationBackgroundSuccess_Normal@2x" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='10' title="" alt="NotificationBackgroundSuccess_Normal@2x" src="../../wp-content/gallery/assets-car/NotificationBackgroundSuccess_Normal@2x.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-10" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationBackgroundSuccessIcon_Normal.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationBackgroundSuccessIcon_Normal.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationBackgroundSuccessIcon_Normal.png" data-image-id="11" data-title="NotificationBackgroundSuccessIcon_Normal" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='11' title="" alt="NotificationBackgroundSuccessIcon_Normal" src="../../wp-content/gallery/assets-car/NotificationBackgroundSuccessIcon_Normal.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-11" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationBackgroundSuccessIcon_Normal@2x.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationBackgroundSuccessIcon_Normal%402x.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationBackgroundSuccessIcon_Normal%402x.png" data-image-id="12" data-title="NotificationBackgroundSuccessIcon_Normal@2x" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='12' title="" alt="NotificationBackgroundSuccessIcon_Normal@2x" src="../../wp-content/gallery/assets-car/NotificationBackgroundSuccessIcon_Normal@2x.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-12" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationBackgroundWarning_Normal.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationBackgroundWarning_Normal.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationBackgroundWarning_Normal.png" data-image-id="13" data-title="NotificationBackgroundWarning_Normal" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='13' title="" alt="NotificationBackgroundWarning_Normal" src="../../wp-content/gallery/assets-car/NotificationBackgroundWarning_Normal.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-13" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationBackgroundWarning_Normal@2x.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationBackgroundWarning_Normal%402x.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationBackgroundWarning_Normal%402x.png" data-image-id="14" data-title="NotificationBackgroundWarning_Normal@2x" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='14' title="" alt="NotificationBackgroundWarning_Normal@2x" src="../../wp-content/gallery/assets-car/NotificationBackgroundWarning_Normal@2x.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-14" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationBackgroundWarningIcon_Normal.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationBackgroundWarningIcon_Normal.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationBackgroundWarningIcon_Normal.png" data-image-id="15" data-title="NotificationBackgroundWarningIcon_Normal" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='15' title="" alt="NotificationBackgroundWarningIcon_Normal" src="../../wp-content/gallery/assets-car/NotificationBackgroundWarningIcon_Normal.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-15" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationBackgroundWarningIcon_Normal@2x.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationBackgroundWarningIcon_Normal%402x.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationBackgroundWarningIcon_Normal%402x.png" data-image-id="16" data-title="NotificationBackgroundWarningIcon_Normal@2x" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='16' title="" alt="NotificationBackgroundWarningIcon_Normal@2x" src="../../wp-content/gallery/assets-car/NotificationBackgroundWarningIcon_Normal@2x.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-16" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationButtonBackground_Normal.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationButtonBackground_Normal.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationButtonBackground_Normal.png" data-image-id="17" data-title="NotificationButtonBackground_Normal" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='17' title="" alt="NotificationButtonBackground_Normal" src="../../wp-content/gallery/assets-car/NotificationButtonBackground_Normal.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-17" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/NotificationButtonBackground_Normal@2x.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/NotificationButtonBackground_Normal%402x.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_NotificationButtonBackground_Normal%402x.png" data-image-id="18" data-title="NotificationButtonBackground_Normal@2x" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='18' title="" alt="NotificationButtonBackground_Normal@2x" src="../../wp-content/gallery/assets-car/NotificationButtonBackground_Normal@2x.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-18" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/RS-Xchange-app-icon_180x180_Normal.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/RS-Xchange-app-icon_180x180_Normal.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_RS-Xchange-app-icon_180x180_Normal.png" data-image-id="19" data-title="RS-Xchange-app-icon_180x180_Normal" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='19' title="" alt="RS-Xchange-app-icon_180x180_Normal" src="../../wp-content/gallery/assets-car/RS-Xchange-app-icon_180x180_Normal.png" style="max-height: 380px;" />
+</a>
+</div>
+<div id="ngg-image-19" class="ngg-gallery-slideshow-image" style="height:400px">
+<a href="../../wp-content/gallery/assets-car/UIButtonBarArrowRight_Normal@2x.png" title="" data-src="https://blog.razb.me/wp-content/gallery/assets-car/UIButtonBarArrowRight_Normal%402x.png" data-thumbnail="https://blog.razb.me/wp-content/gallery/assets-car/thumbs/thumbs_UIButtonBarArrowRight_Normal%402x.png" data-image-id="20" data-title="UIButtonBarArrowRight_Normal@2x" data-description="" class="ngg-fancybox" rel="56c9698f78e03746c11df90fe164f916">
+<img data-image-id='20' title="" alt="UIButtonBarArrowRight_Normal@2x" src="../../wp-content/gallery/assets-car/UIButtonBarArrowRight_Normal@2x.png" style="max-height: 380px;" />
+</a>
+</div>
+</div>
+
+<div class="slideshowlink" style="max-width: 600px;">
+<a href='thumbnails.html'>[Show thumbnails]</a>
+</div>
+<h3></h3>
+<h3>Base.lproj/</h3>
+<p>This folder has to do with localization. If an app supports multiple languages, each resource which needs to be translated (strings, images, storyboards, xibs) will go into its own folder which ends in &#8220;.lproj&#8221;. For example, if your app was localized to english and french, you will have three &#8220;.lproj&#8221; folders: en.lproj, fr.lproj, and Base.lproj. The en.lproj and fr.lproj folders will contain resources which have been converted to their respective languages, and Base.lproj contains the default resources to use in the case when a user&#8217;s phone is using a language which is not supported by the app. In most cases, Base.lproj just contains the english version of the app&#8217;s resources.</p>
+<h3>Frameworks/</h3>
+<p>This folder contains all of the dynamic frameworks and libraries which the app relies on. This is just some code which was written outside of the main app, and which is used by the main app. Here is an example of some of the files which might be found in this folder:</p>
+<ul>
+<li>AFNetworking.framework/</li>
+<li>Blindside.framework/</li>
+<li>BlindsidedStoryboard.framework/</li>
+<li>ChameleonFramework.framework/</li>
+<li>Charts.framework/</li>
+<li>DZNEmptyDataSet.framework/</li>
+<li>FontAwesome_iOS.framework/</li>
+<li>Harpy.framework/</li>
+<li>HexColors.framework/</li>
+<li>KSDeferred.framework/</li>
+<li>MaryPopin.framework/</li>
+<li>NXTSegmentedControl.framework/</li>
+<li>PPiAwesomeButton.framework/</li>
+<li>PPiFlatSegmentedControl.framework/</li>
+<li>SCLAlertView_Objective_C.framework/</li>
+<li>SDWebImage.framework/</li>
+<li>TSMessages.framework/</li>
+<li>iRate.framework/</li>
+<li>libswiftContacts.dylib</li>
+<li>libswiftCore.dylib</li>
+<li>libswiftCoreGraphics.dylib</li>
+<li>libswiftCoreImage.dylib</li>
+<li>libswiftDarwin.dylib</li>
+<li>libswiftDispatch.dylib</li>
+<li>libswiftFoundation.dylib</li>
+<li>libswiftObjectiveC.dylib</li>
+<li>libswiftUIKit.dylib</li>
+</ul>
+<p>Amongst these, you&#8217;ll notice that some apps contain files which start with &#8220;libswift&#8221;, and have the extension &#8220;.dylib&#8221;. These files make up the Swift runtime, and they are necessary to be included in every app which contains <a href="https://developer.apple.com/swift/">Swift</a> code.</p>
+<h3>Info.plist</h3>
+<p>This file contains generic information about the app itself. Things ranging from the app&#8217;s name, to the AppIcon files we talked about above, to the permissions which the app might ask for (photos, camera, contacts, etc), and even some internal information such as the unique identifier for the app (called the bundle identifier). Here is a sample <em>Info.plist</em> file:</p>
+<p><script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://gist.github.com/Raztor0/6b2615434ef3e4c86341ad0eb5017f27.js" type="1463d25926874d768e7525bc-text/javascript"></script></p>
+<p>A lot of interesting information can be found in the&nbsp;<em>Info.plist</em> file. An official summary of everything this file might contain can be found <a href="https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Introduction/Introduction.html">here</a>&nbsp;and <a href="https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/iPhoneOSKeys.html#//apple_ref/doc/uid/TP40009252-SW1">here</a>.</p>
+<h2>&lt;something&gt;.storyboardc/</h2>
+<p>Folders which end in&nbsp;<em>.storyboardc</em> contain some information related to the layout of particular screens or views within the app. The presence of these folders indicate that the app was developed using the <a href="https://developer.apple.com/xcode/interface-builder/">Interface Builder tool</a>. Within these folders, you will find several <em>.nib</em> files along with another&nbsp;<em>Info.plist</em> file:</p>
+<ul>
+<li>Info.plist</li>
+<li>UIViewController-x1L-Z2-jkR.nib</li>
+<li>x1L-Z2-jkR-view-7LY-9B-3EQ.nib</li>
+</ul>
+<p>The <em>Info.plist</em> file included here is in binary format, and you need to convert it to XML format before being able to read it like normal&nbsp;<em>.plist</em> files. Run this command to convert it to XML:</p>
+<div id="crayon-5c847cabac2ff984079329" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+plutil -convert xml1 Info.plist</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="hide">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5c847cabac2ff984079329-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5c847cabac2ff984079329-1"><span class="crayon-v">plutil</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-e">convert </span><span class="crayon-e">xml1 </span><span class="crayon-v">Info</span><span class="crayon-sy">.</span><span class="crayon-v">plist</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+
+<p>Here is what an example <em>Info.plist</em> file could look like inside of a <em>.storyboardc</em> file:</p>
+<p><script src="https://gist.github.com/Raztor0/9c1329ac54e2551df0808f1019275691.js" type="1463d25926874d768e7525bc-text/javascript"></script></p>
+<p>The keys/values within these&nbsp;<em>Info.plist</em> files describe some information relating to the&nbsp;<em>.nib</em> files found alongside them. In this case, the&nbsp;<em>UIStoryboardDesignatedEntryPointIdentifier</em> key is indicating that the view controller with the identifier&nbsp;<em>UIViewController-x1L-Z2-jkR</em> is to be used as the &#8220;entry point&#8221; for the application, or the first screen to be displayed when the app is opened. The&nbsp;<em>UIViewControllerIdentifiersToNibNames</em> key is mapping identifiers in the compiled&nbsp;<em>.nib</em> files to other&nbsp;<em>.nib&nbsp;</em>files.</p>
+<h2>&lt;something&gt;.nib</h2>
+<p><em>.nib</em> files are the result of compiling&nbsp;<em>.xib</em> files using the <a href="https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/ibtool.1.html">ibtool</a> utility.&nbsp;<em>.xib</em> files are XML files which define the user interface for a specific element within the app. Everything from individual buttons to entire screens can be defined in <em>.xib</em> files. Here is a sample&nbsp;<em>.xib</em> file:</p>
+<p><script src="https://gist.github.com/Raztor0/67a944fc3ede0ce66df9fb306d2e98bb.js" type="1463d25926874d768e7525bc-text/javascript"></script></p>
+<p>And the corresponding user interface it produces:</p>
+<div id="attachment_272" style="width: 409px" class="wp-caption alignnone"><img data-attachment-id="272" data-permalink="https://blog.razb.me/pulling-apart-an-ios-app/screen-shot-2017-12-29-at-7-46-25-pm/" data-orig-file="https://i2.wp.com/blog.razb.me/wp-content/uploads/2017/12/Screen-Shot-2017-12-29-at-7.46.25-PM.png?fit=724%2C198&amp;ssl=1" data-orig-size="724,198" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title=".xib user interface" data-image-description="&lt;p&gt;.xib user interface&lt;/p&gt;
+" data-medium-file="https://i2.wp.com/blog.razb.me/wp-content/uploads/2017/12/Screen-Shot-2017-12-29-at-7.46.25-PM.png?fit=300%2C82&amp;ssl=1" data-large-file="https://i2.wp.com/blog.razb.me/wp-content/uploads/2017/12/Screen-Shot-2017-12-29-at-7.46.25-PM.png?fit=724%2C198&amp;ssl=1" src="https://i2.wp.com/blog.razb.me/wp-content/uploads/2017/12/Screen-Shot-2017-12-29-at-7.46.25-PM.png?resize=399%2C109&#038;ssl=1" alt=".xib user interface" width="399" height="109" class=" wp-image-272" srcset="https://i2.wp.com/blog.razb.me/wp-content/uploads/2017/12/Screen-Shot-2017-12-29-at-7.46.25-PM.png?w=724&amp;ssl=1 724w, https://i2.wp.com/blog.razb.me/wp-content/uploads/2017/12/Screen-Shot-2017-12-29-at-7.46.25-PM.png?resize=300%2C82&amp;ssl=1 300w" sizes="(max-width: 399px) 100vw, 399px" data-recalc-dims="1" /><p class="wp-caption-text">.xib user interface</p></div>
+<p>It&#8217;s important to note that while developing, the XML of a&nbsp;<em>.xib</em> file is never modified directly by a person. The resulting XML is generated through the Interface Builder tool.</p>
+<h2>PkgInfo</h2>
+<p>This is an auto-generated file which contains&nbsp;<span>the 4-byte package type followed by the 4-byte signature of your application. For iOS apps, the package type will be &#8220;<em>APPL</em>&#8220;, and the signature will be <em>0x3f3f3f3f</em>.<br />
+More information about this file can be found <a href="https://developer.apple.com/library/content/documentation/MacOSX/Conceptual/BPRuntimeConfig/Articles/ConfigApplications.html">here</a>.</span></p>
+<h2>RS Xchange</h2>
+<p>This file name will be different from app to app, and the name corresponds to the value for the&nbsp;<em>CFBundleExecutable</em> in the <em>Info.plist</em> file. This is the app&#8217;s main executable. It contains all of the code necessary to make the app run. This is the file that gets executed when you tap on the app&#8217;s icon on your home screen.</p>
+<p>When you download an&nbsp;<em>.ipa</em> file from the App Store, this executable is encrypted, so you can&#8217;t take a closer look at what&#8217;s inside of it. Fortunately there is a way to get the decrypted version, but we&#8217;ll cover that in a future blog post.</p>
+<h2>SC_Info/</h2>
+<p>This folder contains keys which are used for decrypting the app executables. The contents will look like this:</p>
+<ul>
+<li>Manifest.plist</li>
+<li>RS Xchange.sinf</li>
+<li>RS Xchange.supf</li>
+<li>RS Xchange.supp</li>
+<li>RS Xchange.supx</li>
+</ul>
+<p>The&nbsp;<em>.sinf, .supf, .supp, .supx</em> files are used for decrypting, and the&nbsp;<em>Manifest.plist</em> file is used to list all of the relevant&nbsp;<em>.sinf</em> files which are to be used. Here is a sample&nbsp;<em>Manifest.plist</em> file:</p>
+<p><script src="https://gist.github.com/Raztor0/8ce840b0841b8639ff453eb1f4435865.js" type="1463d25926874d768e7525bc-text/javascript"></script></p>
+<h2>TSMessagesDefaultDesign.json</h2>
+<p>This file is specific to the RS Xchange app which we have been inspecting throughout this post. It is just one of the additional resources which are included with the app. Apps can have all sorts of arbitrary resources which they require to function, and you will find them all in the root of the&nbsp;<em>.app</em> folder.</p>
+<h2>_CodeSignature/</h2>
+<p>This folder contains information related to <a href="https://en.wikipedia.org/wiki/Code_signing">code signing</a>. When a developer decides to distribute an app via the App Store, code signing is performed on the executable and all of the other resources included within the app. The purpose of this process is to ensure that the app can not be modified by any malicious third party after the developer has chosen to distribute a version of their app.</p>
+<p>There is a single file within this folder called&nbsp;<em>CodeResources</em>. Taking a closer look at this file, it is actually a&nbsp;<em>.plist</em>, and can be opened the same way as any other&nbsp;<em>.plist</em> file. You can find a sample&nbsp;<em>CodeResources</em> file <a href="https://gist.github.com/Raztor0/cbb627ebb650a40dd59f88ae095bd4ef#file-coderesources">here</a>. (I would include it directly here, but it&#8217;s 3000+ lines long)</p>
+<p>Each file which is eligible for code signing is included in this file, along with the corresponding hash data which should result from the process of signing each file.</p>
+<p>If any of these files are modified after the developer has signed it, the hashes of the files will differ and the app will be unable to be run on a device.</p>
+<p>More information about code signing can be found <a href="https://developer.apple.com/library/content/documentation/Security/Conceptual/CodeSigningGuide/AboutCS/AboutCS.html">here</a> and <a href="https://developer.apple.com/support/code-signing/">here</a>.</p>
+<h2>archived-expanded-entitlements.xcent</h2>
+<p>This file is once again just a&nbsp;<em>.plist</em> file in disguise. It contains all of the entitlements which the app has requested, such as push notifications and access to iCloud storage. Here is a sample&nbsp;archived-expanded-entitlements.xcent file:</p>
+<p><script src="https://gist.github.com/Raztor0/1224bd416936ea4316e4a2708b48a1f1.js" type="1463d25926874d768e7525bc-text/javascript"></script></p>
+<p>In this example, the only entitlement the app is requesting is for&nbsp;keychain-access-groups. You can find a complete list of the entitlements which an app may request <a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/AddingCapabilities/AddingCapabilities.html">here</a>.</p>
+<h2>META-INF/</h2>
+<p>This folder contains some general metadata about the .ipa file. Under the META-INF/ folder, you will find two more files:</p>
+<ul>
+<li>com.apple.FixedZipMetadata.bin</li>
+<li>com.apple.ZipMetadata.plist</li>
+</ul>
+<p>You typically don&#8217;t need to worry about this folder, and there isn&#8217;t much documentation to go with it, but let&#8217;s run through the two files found here anyway.</p>
+<h3>com.apple.ZipMetadata.plist</h3>
+<p>The&nbsp;<em>com.apple.ZipMetadata.plist</em> file contains some information about how the .ipa file was created, along with its uncompressed size. This is what a sample&nbsp;<em>com.apple.ZipMetadata.plist</em> file might look like:</p>
+<p><script src="https://gist.github.com/Raztor0/d51544fdd45ceee5dc592afc8e01bbba.js" type="1463d25926874d768e7525bc-text/javascript"></script></p>
+<p>Note that this .plist file is typically found in binary format, and you will need to do some work to convert it to XML format to get the output above. Converting a binary plist to an XML plist can be done with the following command:</p>
+<div id="crayon-5c847cabac315162359651" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+plutil -convert xml1 com.apple.ZipMetadata.plist</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="hide">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5c847cabac315162359651-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5c847cabac315162359651-1"><span class="crayon-v">plutil</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-e">convert </span><span class="crayon-e">xml1 </span><span class="crayon-v">com</span><span class="crayon-sy">.</span><span class="crayon-v">apple</span><span class="crayon-sy">.</span><span class="crayon-v">ZipMetadata</span><span class="crayon-sy">.</span><span class="crayon-v">plist</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+
+<p></p>
+<h3>com.apple.FixedZipMetadata.bin</h3>
+<p>The next file,&nbsp;<em>com.apple.FixedZipMetadata.bin</em>, is binary file of some sort. There isn&#8217;t much documentation about what this is or how to read it, but doing a hexdump on it yields the following:</p>
+<div id="crayon-5c847cabac31a103023112" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important;">
+<div class="crayon-toolbar" data-settings=" mouseover overlay hide delay" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 12px !important; line-height: 15px !important;">
+00000000  4d 64 46 78 01 10 00 00  00 00 00 00 00 00 00 00  |MdFx............|
+00000010  00 00 00 00 00 00 00                              |.......|
+00000017</textarea></div>
+<div class="crayon-main" style="">
+<table class="crayon-table">
+<tr class="crayon-row">
+<td class="crayon-nums " data-settings="hide">
+<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5c847cabac31a103023112-1">1</div><div class="crayon-num" data-line="crayon-5c847cabac31a103023112-2">2</div><div class="crayon-num" data-line="crayon-5c847cabac31a103023112-3">3</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5c847cabac31a103023112-1"><span class="crayon-cn">00000000</span><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-cn">4d</span><span class="crayon-h"> </span><span class="crayon-cn">64</span><span class="crayon-h"> </span><span class="crayon-cn">46</span><span class="crayon-h"> </span><span class="crayon-cn">78</span><span class="crayon-h"> </span><span class="crayon-cn">01</span><span class="crayon-h"> </span><span class="crayon-cn">10</span><span class="crayon-h"> </span><span class="crayon-cn">00</span><span class="crayon-h"> </span><span class="crayon-cn">00</span><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-cn">00</span><span class="crayon-h"> </span><span class="crayon-cn">00</span><span class="crayon-h"> </span><span class="crayon-cn">00</span><span class="crayon-h"> </span><span class="crayon-cn">00</span><span class="crayon-h"> </span><span class="crayon-cn">00</span><span class="crayon-h"> </span><span class="crayon-cn">00</span><span class="crayon-h"> </span><span class="crayon-cn">00</span><span class="crayon-h"> </span><span class="crayon-cn">00</span><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-o">|</span><span class="crayon-v">MdFx</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-o">|</span></div><div class="crayon-line" id="crayon-5c847cabac31a103023112-2"><span class="crayon-cn">00000010</span><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-cn">00</span><span class="crayon-h"> </span><span class="crayon-cn">00</span><span class="crayon-h"> </span><span class="crayon-cn">00</span><span class="crayon-h"> </span><span class="crayon-cn">00</span><span class="crayon-h"> </span><span class="crayon-cn">00</span><span class="crayon-h"> </span><span class="crayon-cn">00</span><span class="crayon-h"> </span><span class="crayon-cn">00</span><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">|</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-o">|</span></div><div class="crayon-line" id="crayon-5c847cabac31a103023112-3"><span class="crayon-cn">00000017</span></div></div></td>
+</tr>
+</table>
+</div>
+</div>
+
+<p></p>
+<h1>That&#8217;s all folks</h1>
+<p>We&#8217;ve officially gone through everything that is found within a typical App Store app file which you download and install on to your device. All of these components work together to provide you with all of the functionality you know and love, like <a href="https://itunes.apple.com/ca/app/candy-crush-saga/id553834731">lining up candy</a>, browsing&nbsp;<a href="https://itunes.apple.com/ca/app/reddit-official-trending-news/id1064216828">memes</a>, and of course, <a href="https://itunes.apple.com/us/app/color-by-number-coloring-book/id1317978215">colouring pictures of cats</a>.</p>
+<div id='jp-relatedposts' class='jp-relatedposts'>
+<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div> </article>
+<div class="section section-blog-info">
+<div class="row">
+<div class="col-md-6">
+<div class="entry-categories">Categories: <span class="label label-primary"><a href="../../category/ios/index.html">iOS</a></span><span class="label label-primary"><a href="../../category/objective-c/index.html">Objective-C</a></span><span class="label label-primary"><a href="../../category/swift/index.html">Swift</a></span> </div>
+</div>
+<div class="col-md-6">
+<div class="entry-social">
+<a target="_blank" rel="tooltip" data-original-title="Share on Facebook" class="btn btn-just-icon btn-round btn-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.razb.me/pulling-apart-an-ios-app/"><i class="fa fa-facebook"></i></a>
+<a target="_blank" rel="tooltip" data-original-title="Share on Twitter" class="btn btn-just-icon btn-round btn-twitter" href="https://twitter.com/home?status=Pulling apart an iOS App - https://blog.razb.me/pulling-apart-an-ios-app/"><i class="fa fa-twitter"></i></a>
+<a target="_blank" rel="tooltip" data-original-title=" Share on Google+" class="btn btn-just-icon btn-round btn-google" href="https://plus.google.com/share?url=https://blog.razb.me/pulling-apart-an-ios-app/"><i class="fa fa-google"></i></a>
+</div></div> </div>
+<hr>
+<div class="card card-profile card-plain">
+<div class="row">
+<div class="col-md-2">
+<div class="card-avatar">
+<a href="../../author/raz/index.html" title="Raz"><img alt='' src='https://secure.gravatar.com/avatar/aae6720c35ab12fac13db06788b2e7fb?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/aae6720c35ab12fac13db06788b2e7fb?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' /></a>
+</div>
+</div>
+<div class="col-md-10">
+<h4 class="card-title">Raz</h4>
+<p class="description">I'm 25 years old and I do stuff with computers.</p>
+</div>
+</div>
+</div>
+<div id="disqus_thread"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section related-posts">
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<h2 class="hestia-title text-center">Related Posts</h2>
+<div class="row">
+<div class="col-md-4">
+<div class="card card-blog">
+<div class="card-image">
+<a href="../../taylor-swifts-new-app-the-swift-life-was-not-written-in-swift/index.html" title="Taylor Swift&#8217;s new app &#8220;The Swift Life™&#8221; was not written in Swift">
+<img width="360" height="240" src="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/swift-og.png?resize=360%2C240&amp;ssl=1" class="attachment-hestia-blog size-hestia-blog wp-post-image" alt="Swift programming language" srcset="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/swift-og.png?resize=360%2C240&amp;ssl=1 360w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/swift-og.png?zoom=2&amp;resize=360%2C240&amp;ssl=1 720w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/swift-og.png?zoom=3&amp;resize=360%2C240&amp;ssl=1 1080w" sizes="(max-width: 360px) 100vw, 360px" data-attachment-id="153" data-permalink="https://blog.razb.me/taylor-swifts-new-app-the-swift-life-was-not-written-in-swift/swift-og/" data-orig-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/swift-og.png?fit=1200%2C1200&amp;ssl=1" data-orig-size="1200,1200" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Swift programming language" data-image-description="&lt;p&gt;Swift programming language&lt;/p&gt;
+" data-medium-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/swift-og.png?fit=300%2C300&amp;ssl=1" data-large-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/swift-og.png?fit=750%2C750&amp;ssl=1" /> </a>
+</div>
+<div class="content">
+<h6 class="category text-info"><a href="../../category/ios/index.html" title="View all posts in iOS">iOS</a> </h6>
+<h4 class="card-title">
+<a class="blog-item-title-link" href="../../taylor-swifts-new-app-the-swift-life-was-not-written-in-swift/index.html" title="Taylor Swift&#8217;s new app &#8220;The Swift Life™&#8221; was not written in Swift" rel="bookmark">
+Taylor Swift&#8217;s new app &#8220;The Swift Life™&#8221; was not written in Swift </a>
+</h4>
+<p class="card-description">Late December 2017, Taylor Swift&#8217;s new iOS app called&nbsp;&#8220;The Swift Life™&#8221; hit the app store. The app is geared towards social media, allowing you to post content and interact with other people&#8217;s content in much<a class="moretag" href="../../taylor-swifts-new-app-the-swift-life-was-not-written-in-swift/index.html"> Read more&hellip;</a></p>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card card-blog">
+<div class="content">
+<h6 class="category text-info"><a href="../../category/ios/index.html" title="View all posts in iOS">iOS</a> </h6>
+<h4 class="card-title">
+<a class="blog-item-title-link" href="../../ksecattraccessgrouptoken-a-workaround-for-the-keychain-autodelete-behaviour-found-in-ios-10-3-beta2/index.html" title="kSecAttrAccessGroupToken &#8211; A workaround for the keychain autodelete behaviour found in iOS 10.3 beta2" rel="bookmark">
+kSecAttrAccessGroupToken &#8211; A workaround for the keychain autodelete behaviour found in iOS 10.3 beta2 </a>
+</h4>
+<p class="card-description">December 27, 2017 update: According to this post on the Apple Developer forums regarding the issue discussed in this topic, This is a bug in the beta that should already be fixed by the time<a class="moretag" href="../../ksecattraccessgrouptoken-a-workaround-for-the-keychain-autodelete-behaviour-found-in-ios-10-3-beta2/index.html"> Read more&hellip;</a></p>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card card-blog">
+<div class="content">
+<h6 class="category text-info"><a href="../../category/lldb/index.html" title="View all posts in LLDB">LLDB</a> </h6>
+<h4 class="card-title">
+<a class="blog-item-title-link" href="../../manipulating-the-currently-executing-line/index.html" title="[LLDB/Xcode] Manipulating the currently executing line" rel="bookmark">
+[LLDB/Xcode] Manipulating the currently executing line </a>
+</h4>
+<p class="card-description">Have you ever wanted to quickly see the result of a particular code path, but realized you had to stop the app, comment out or modify some code, and run the app again so that<a class="moretag" href="../../manipulating-the-currently-executing-line/index.html"> Read more&hellip;</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer-wrapper">
+<footer class="footer footer-black footer-big">
+<div class="container">
+</div>
+</footer>
+<div style="display: none">
+</div>
+</div>
+</div>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/jetpack/_inc/build/photon/photon.min.js%3Fver=20130122'></script>
+<script type="1463d25926874d768e7525bc-text/javascript">
+/* <![CDATA[ */
+var countVars = {"disqusShortname":"razvanbangu"};
+/* ]]> */
+</script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/disqus-comment-system/public/js/comment_count.js%3Fver=3.0.16'></script>
+<script type="1463d25926874d768e7525bc-text/javascript">
+/* <![CDATA[ */
+var embedVars = {"disqusConfig":{"integration":"wordpress 3.0.16"},"disqusIdentifier":"160 https:\/\/blog.razb.me\/?p=160","disqusShortname":"razvanbangu","disqusTitle":"Pulling apart an iOS App","disqusUrl":"https:\/\/blog.razb.me\/pulling-apart-an-ios-app\/","postId":"160"};
+/* ]]> */
+</script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/disqus-comment-system/public/js/comment_embed.js%3Fver=3.0.16'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201910'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-includes/js/comment-reply.min.js%3Fver=5.0.3'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/themes/hestia/assets/bootstrap/js/bootstrap.min.js%3Fver=1.0.1'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/themes/hestia/assets/js/material.js%3Fver=1.0.1'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-includes/js/jquery/ui/core.min.js%3Fver=1.11.4'></script>
+<script type="1463d25926874d768e7525bc-text/javascript">
+/* <![CDATA[ */
+var requestpost = {"ajaxurl":"https:\/\/blog.razb.me\/wp-admin\/admin-ajax.php"};
+var hestiaViewcart = {"view_cart_label":"View cart","view_cart_link":""};
+/* ]]> */
+</script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/themes/hestia/assets/js/scripts.js%3Fver=1.1.71'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-includes/js/wp-embed.min.js%3Fver=5.0.3'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/jetpack/_inc/build/spin.min.js%3Fver=1.3'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/jetpack/_inc/build/jquery.spin.min.js%3Fver=1.3'></script>
+<script type="1463d25926874d768e7525bc-text/javascript">
+/* <![CDATA[ */
+var jetpackCarouselStrings = {"widths":[370,700,1000,1200,1400,2000],"is_logged_in":"","lang":"en","ajaxurl":"https:\/\/blog.razb.me\/wp-admin\/admin-ajax.php","nonce":"13ce74276d","display_exif":"1","display_geo":"1","single_image_gallery":"1","single_image_gallery_media_file":"","background_color":"black","comment":"Comment","post_comment":"Post Comment","write_comment":"Write a Comment...","loading_comments":"Loading Comments...","download_original":"View full size <span class=\"photo-size\">{0}<span class=\"photo-size-times\">\u00d7<\/span>{1}<\/span>","no_comment_text":"Please be sure to submit some text with your comment.","no_comment_email":"Please provide an email address to comment.","no_comment_author":"Please provide your name to comment.","comment_post_error":"Sorry, but there was an error posting your comment. Please try again later.","comment_approved":"Your comment was approved.","comment_unapproved":"Your comment is in moderation.","camera":"Camera","aperture":"Aperture","shutter_speed":"Shutter Speed","focal_length":"Focal Length","copyright":"Copyright","comment_registration":"0","require_name_email":"1","login_url":"https:\/\/blog.razb.me\/wp-login.php?redirect_to=https%3A%2F%2Fblog.razb.me%2Fpulling-apart-an-ios-app%2F","blog_id":"1","meta_data":["camera","aperture","shutter_speed","focal_length","copyright"],"local_comments_commenting_as":"<fieldset><label for=\"email\">Email (Required)<\/label> <input type=\"text\" name=\"email\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-email-field\" \/><\/fieldset><fieldset><label for=\"author\">Name (Required)<\/label> <input type=\"text\" name=\"author\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-author-field\" \/><\/fieldset><fieldset><label for=\"url\">Website<\/label> <input type=\"text\" name=\"url\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-url-field\" \/><\/fieldset>"};
+/* ]]> */
+</script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/jetpack/_inc/build/carousel/jetpack-carousel.min.js%3Fver=20170209'></script>
+<script type="1463d25926874d768e7525bc-text/javascript">
+/* <![CDATA[ */
+var photocrati_ajax = {"url":"https:\/\/blog.razb.me\/?photocrati_ajax=1","wp_home_url":"https:\/\/blog.razb.me","wp_site_url":"https:\/\/blog.razb.me","wp_root_url":"https:\/\/blog.razb.me","wp_plugins_url":"https:\/\/blog.razb.me\/wp-content\/plugins","wp_content_url":"https:\/\/blog.razb.me\/wp-content","wp_includes_url":"https:\/\/blog.razb.me\/wp-includes\/","ngg_param_slug":"nggallery"};
+/* ]]> */
+</script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/ajax/static/ajax.min.js%3Fver=3.1.4'></script>
+<script type="1463d25926874d768e7525bc-text/javascript">
+/* <![CDATA[ */
+
+var galleries = {};
+galleries.gallery_15a237bf62a8a7acf556de14ae20f3e3 = {"id":null,"ids":null,"source":"galleries","src":"","container_ids":["21"],"gallery_ids":[],"album_ids":[],"tag_ids":[],"display_type":"photocrati-nextgen_basic_thumbnails","display":"","exclusions":[],"order_by":"sortorder","order_direction":"ASC","image_ids":[],"entity_ids":[],"tagcloud":false,"returns":"included","slug":"Assets.car","sortorder":[],"display_settings":{"use_lightbox_effect":true,"images_per_page":"20","number_of_columns":"0","thumbnail_width":"100","thumbnail_height":"100","show_all_in_lightbox":"0","ajax_pagination":"0","use_imagebrowser_effect":"0","template":"default","display_no_images_error":1,"disable_pagination":0,"show_slideshow_link":"1","slideshow_link_text":"&#091;Show slideshow&#093;","override_thumbnail_settings":"1","thumbnail_quality":"100","thumbnail_crop":"1","thumbnail_watermark":0,"ngg_triggers_display":"never","_errors":[],"display_view":"default","maximum_entity_count":"500"},"excluded_container_ids":[],"maximum_entity_count":500,"__defaults_set":true,"_errors":[],"ID":"15a237bf62a8a7acf556de14ae20f3e3"};
+galleries.gallery_15a237bf62a8a7acf556de14ae20f3e3.wordpress_page_root = "https:\/\/blog.razb.me\/pulling-apart-an-ios-app\/";
+var nextgen_lightbox_settings = {"static_path":"https:\/\/blog.razb.me\/wp-content\/plugins\/nextgen-gallery\/products\/photocrati_nextgen\/modules\/lightbox\/static","context":"nextgen_images"};
+galleries.gallery_56c9698f78e03746c11df90fe164f916 = {"id":null,"ids":null,"source":"galleries","src":"","container_ids":["21"],"gallery_ids":[],"album_ids":[],"tag_ids":[],"display_type":"photocrati-nextgen_basic_slideshow","display":"","exclusions":[],"order_by":"sortorder","order_direction":"ASC","image_ids":[],"entity_ids":[],"tagcloud":false,"returns":"included","slug":"Assets.car","sortorder":[],"display_settings":{"use_lightbox_effect":true,"gallery_width":600,"gallery_height":400,"thumbnail_width":240,"thumbnail_height":160,"cycle_interval":10,"cycle_effect":"fade","effect_code":"class=\"ngg-fancybox\" rel=\"%GALLERY_NAME%\"","show_thumbnail_link":1,"thumbnail_link_text":"[Show thumbnails]","template":"","ngg_triggers_display":"never","_errors":[],"display_view":"default","autoplay":1,"pauseonhover":1,"arrows":0,"interval":3000,"transition_speed":300,"transition_style":"fade","display_settings":[],"excluded_container_ids":[],"maximum_entity_count":500,"__defaults_set":true,"ID":"15a237bf62a8a7acf556de14ae20f3e3","original_display_type":"photocrati-nextgen_basic_thumbnails","original_settings":{"use_lightbox_effect":true,"images_per_page":"20","number_of_columns":"0","thumbnail_width":"100","thumbnail_height":"100","show_all_in_lightbox":"0","ajax_pagination":"0","use_imagebrowser_effect":"0","template":"default","display_no_images_error":1,"disable_pagination":0,"show_slideshow_link":"1","slideshow_link_text":"&#091;Show slideshow&#093;","override_thumbnail_settings":"1","thumbnail_quality":"100","thumbnail_crop":"1","thumbnail_watermark":0,"ngg_triggers_display":"never","_errors":[],"display_view":"default","maximum_entity_count":"500"}},"excluded_container_ids":[],"maximum_entity_count":500,"__defaults_set":true,"_errors":[],"ID":"56c9698f78e03746c11df90fe164f916"};
+galleries.gallery_56c9698f78e03746c11df90fe164f916.wordpress_page_root = "https:\/\/blog.razb.me\/pulling-apart-an-ios-app\/";
+var nextgen_lightbox_settings = {"static_path":"https:\/\/blog.razb.me\/wp-content\/plugins\/nextgen-gallery\/products\/photocrati_nextgen\/modules\/lightbox\/static","context":"nextgen_images"};
+/* ]]> */
+</script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_gallery_display/static/common.min.js%3Fver=3.1.4'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_basic_gallery/static/thumbnails/nextgen_basic_thumbnails.min.js%3Fver=3.1.4'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/lightbox/static/lightbox_context.min.js%3Fver=3.1.4'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/lightbox/static/fancybox/jquery.easing-1.3.pack.js%3Fver=3.1.4'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/lightbox/static/fancybox/jquery.fancybox-1.3.4.pack.js%3Fver=3.1.4'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/lightbox/static/fancybox/nextgen_fancybox_init.min.js%3Fver=3.1.4'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='https://use.fontawesome.com/releases/v5.3.1/js/v4-shims.js?ver=5.3.1'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" defer integrity="sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB" crossorigin="anonymous" data-auto-replace-svg="false" data-keep-original-source="false" data-search-pseudo-elements src='https://use.fontawesome.com/releases/v5.3.1/js/all.js?ver=5.3.1'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_basic_gallery/static/slideshow/slick/slick.min.js%3Fver=3.1.4'></script>
+<script type="1463d25926874d768e7525bc-text/javascript" src='../../wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_basic_gallery/static/slideshow/ngg_basic_slideshow.min.js%3Fver=3.1.4'></script>
+<script type="1463d25926874d768e7525bc-text/javascript">
+			function showhide_toggle(type, post_id, more_text, less_text) {
+				var   $link = jQuery("#"+ type + "-link-" + post_id)
+					, $link_a = jQuery('a', $link)
+					, $content = jQuery("#"+ type + "-content-" + post_id)
+					, $toggle = jQuery("#"+ type + "-toggle-" + post_id)
+					, show_hide_class = 'sh-show sh-hide';
+				$link.toggleClass(show_hide_class);
+				$content.toggleClass(show_hide_class).toggle();
+				if($link_a.attr('aria-expanded') === 'true') {
+					$link_a.attr('aria-expanded', 'false');
+				} else {
+					$link_a.attr('aria-expanded', 'true');
+				}
+				if($toggle.text() === more_text) {
+					$toggle.text(less_text);
+					$link.trigger( "sh-link:more" );
+				} else {
+					$toggle.text(more_text);
+					$link.trigger( "sh-link:less" );
+				}
+				$link.trigger( "sh-link:toggle" );
+			}
+		</script>
+<div style="display:none">
+<div class="grofile-hash-map-aae6720c35ab12fac13db06788b2e7fb">
+</div>
+</div>
+<script type="1463d25926874d768e7525bc-text/javascript" src='https://stats.wp.com/e-201910.js' async='async' defer='defer'></script>
+<script type="1463d25926874d768e7525bc-text/javascript">
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:6.8.1',blog:'108306310',post:'160',tz:'-5',srv:'blog.razb.me'} ]);
+	_stq.push([ 'clickTrackerInit', '108306310', '160' ]);
+</script>
+<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/a2bd7673/cloudflare-static/rocket-loader.min.js" data-cf-settings="1463d25926874d768e7525bc-|49" defer=""></script></body>
+</html>

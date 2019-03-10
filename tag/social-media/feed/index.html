@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+>
+
+<channel>
+	<title>social media &#8211; Raz</title>
+	<atom:link href="https://blog.razb.me/tag/social-media/feed/" rel="self" type="application/rss+xml" />
+	<link>https://blog.razb.me</link>
+	<description>Computer stuff</description>
+	<lastBuildDate>Sun, 13 Jan 2019 01:25:31 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.0.3</generator>
+
+<image>
+	<url>https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/04/cropped-Untitled.png?fit=32%2C32&#038;ssl=1</url>
+	<title>social media &#8211; Raz</title>
+	<link>https://blog.razb.me</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">108306310</site>	<item>
+		<title>Spoofing URL previews</title>
+		<link>https://blog.razb.me/spoofing-url-previews/</link>
+		<comments>https://blog.razb.me/spoofing-url-previews/#respond</comments>
+		<pubDate>Mon, 31 Dec 2018 09:38:02 +0000</pubDate>
+		<dc:creator><![CDATA[Raz]]></dc:creator>
+				<category><![CDATA[Social Media]]></category>
+		<category><![CDATA[facebook]]></category>
+		<category><![CDATA[imessage]]></category>
+		<category><![CDATA[phishing]]></category>
+		<category><![CDATA[reddit]]></category>
+		<category><![CDATA[social media]]></category>
+		<category><![CDATA[spoofing]]></category>
+		<category><![CDATA[twitter]]></category>
+
+		<guid isPermaLink="false">https://blog.razb.me/?p=333</guid>
+		<description><![CDATA[The rise of social media has enabled us to share content with one another at an unprecedented rate. From Facebook to Twitter to Reddit to iMessage we&#8217;re sharing things that we&#8217;ve found on the internet more and more, so much so that it became difficult to decide what&#8217;s worth clicking<a class="moretag" href="https://blog.razb.me/spoofing-url-previews/"> Read more&#8230;</a>]]></description>
+				<content:encoded><![CDATA[
+<p>The rise of social media has enabled us to share content with one another at an unprecedented rate. From Facebook to Twitter to Reddit to iMessage we&#8217;re sharing things that we&#8217;ve found on the internet more and more, so much so that it became difficult to decide what&#8217;s worth clicking on and what isn&#8217;t when we&#8217;re being presented with vast amounts of content summarized in the form of a URL. To solve this problem, URL previews were created.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<h4>So what is a URL preview?</h4>
+
+
+
+<p>A URL preview is something which we&#8217;ve all seen while we browse the internet. Somebody shares a URL to some piece of content, usually a web page, and the social platform which we&#8217;re browsing automatically generates a preview of the content found at the URL. In the example Facebook post below, I am sharing a URL to one of my favourite games, RuneScape:</p>
+
+
+
+<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Frazvan.mcbang%2Fposts%2F105811240495300&amp;width=500" width="500" height="491"></iframe>
+
+
+
+<p>These previews are generally very helpful and provide us with rich context surrounding what sort of content we can expect to find if we were to actually click on the URL. In the example above, we get several pieces of information:</p>
+
+
+
+<ul><li>A main picture which is supposed to depict what we might see when we click the link</li><li>The actual domain name which we can expect to find ourselves at when we click the link</li><li>A short textual description of what the web page is about</li></ul>
+
+
+
+<p>Upon seeing the above post you might expect that clicking on the post will take you to <a href="http://runescape.com">runescape.com</a> and that the web page will look roughly as you expect it to look based on the preview provided by Facebook. However if you go ahead and actually click on the post above, you&#8217;ll find yourself at my proof-of-concept website instead: <a href="https://poc.razb.me">poc.razb.me</a></p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<h4>How are URL previews created?</h4>
+
+
+
+<p>In order to understand how a URL preview might be spoofed, we must first understand how a URL preview is created. I will be using Facebook as my example platform, but all platforms which provide this sort of preview will function in a similar manner.</p>
+
+
+
+<p>There are really only three main steps in generating a URL preview:</p>
+
+
+
+<ol><li>Download a copy of the web page found at the URL</li><li>Inspect it for various metadata tags</li><li>Generate the preview</li></ol>
+
+
+
+<p>The first step should be pretty straightforward, just make a GET request to the URL and save the resulting HTML.</p>
+
+
+
+<p>The second step is specific to the platform. Each platform defines its own set of metadata tags which can be added to the HTML of any webpage for providing information to be used for populating URL previews. You can find out all about these HTML tags here: <a href="https://developers.facebook.com/docs/sharing/webmasters/">https://developers.facebook.com/docs/sharing/webmasters/</a></p>
+
+
+
+<p>The third step is to put together the information provided via the metadata tags into a visual format which becomes the URL preview.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<h4>How can we spoof the preview generation?</h4>
+
+
+
+<p>So far everything looks fine. I share a URL, Facebook fetches that web page and parses the HTML tags then generates the preview from them. How can we possibly spoof any of this? We don&#8217;t necessarily own the web page which we&#8217;re linking to, so what can we do?</p>
+
+
+
+<p>Let&#8217;s try sharing a URL to a web page which we do own and check the GET request which Facebook makes.</p>
+
+
+
+<p>Upon inspection, when Facebook makes a GET request to my proof-of-concept domain, the headers look something like this:</p>
+
+
+
+<link rel="stylesheet" href="https://github.githubassets.com/assets/gist-embed-d7f32d1731d95b9cb4d3c880c428c9e9.css">
+<div id="gist93814398" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-facebook_header-json" class="file">
+    
+
+  <div itemprop="text" class="blob-wrapper data type-json ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tbody><tr>
+        <td id="file-facebook_header-json-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-facebook_header-json-LC1" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-facebook_header-json-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-facebook_header-json-LC2" class="blob-code blob-code-inner js-file-line">	<span class="pl-s"><span class="pl-pds">&#8220;</span>Host<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>poc.razb.me<span class="pl-pds">&#8220;</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-facebook_header-json-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-facebook_header-json-LC3" class="blob-code blob-code-inner js-file-line">	<span class="pl-s"><span class="pl-pds">&#8220;</span>Connection<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>Keep-Alive<span class="pl-pds">&#8220;</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-facebook_header-json-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-facebook_header-json-LC4" class="blob-code blob-code-inner js-file-line">	<span class="pl-s"><span class="pl-pds">&#8220;</span>Accept-Encoding<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>gzip<span class="pl-pds">&#8220;</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-facebook_header-json-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-facebook_header-json-LC5" class="blob-code blob-code-inner js-file-line">	<span class="pl-s"><span class="pl-pds">&#8220;</span>Accept<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>*<span class="pl-cce">\\</span>/*<span class="pl-pds">&#8220;</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-facebook_header-json-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-facebook_header-json-LC6" class="blob-code blob-code-inner js-file-line">	<span class="pl-s"><span class="pl-pds">&#8220;</span>User-Agent<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>facebookexternalhit<span class="pl-cce">\\</span>/1.1 (+http:<span class="pl-cce">\\</span>/<span class="pl-cce">\\</span>/<a class="vglnk" href="http://www.facebook.com" rel="nofollow"><span>www</span><span>.</span><span>facebook</span><span>.</span><span>com</span></a><span class="pl-cce">\\</span>/externalhit_uatext.php)<span class="pl-pds">&#8220;</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-facebook_header-json-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-facebook_header-json-LC7" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/Raztor0/e57f5fd2fd26df06fc32d73894956ebf/raw/3456fd805c0e2f2dcb42e38315a6924170e97e84/facebook_header.json" style="float:right">view raw</a>
+        <a href="https://gist.github.com/Raztor0/e57f5fd2fd26df06fc32d73894956ebf#file-facebook_header-json">facebook_header.json</a>
+        hosted with <img draggable="false" class="emoji" alt="&#x2764;" src="https://s.w.org/images/core/emoji/11/svg/2764.svg" scale="0"> by <a href="https://github.com">GitHub</a>
+      </div>
+    </div>
+</div>
+
+
+
+<p>The field worth noting is the &#8220;User-Agent&#8221; field. This is used as a courtesy by the client requesting our web page and it lets us know what sort of browser (or in this case bot) was used to access our web page.</p>
+
+
+
+<p>In the case of the Facebook URL preview generation, Facebook&#8217;s bot configured the &#8220;User-Agent&#8221; field to something specific to their use case and they call it &#8220;facebookexternalhit&#8221;.</p>
+
+
+
+<p>For a normal user like you or I requesting my web page, the header will look something like this:</p>
+
+
+
+<link rel="stylesheet" href="https://github.githubassets.com/assets/gist-embed-d7f32d1731d95b9cb4d3c880c428c9e9.css">
+<div id="gist93814446" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-normal_header-json" class="file">
+    
+
+  <div itemprop="text" class="blob-wrapper data type-json ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tbody><tr>
+        <td id="file-normal_header-json-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-normal_header-json-LC1" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-normal_header-json-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-normal_header-json-LC2" class="blob-code blob-code-inner js-file-line">	<span class="pl-s"><span class="pl-pds">&#8220;</span>Host<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>poc.razb.me<span class="pl-pds">&#8220;</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-normal_header-json-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-normal_header-json-LC3" class="blob-code blob-code-inner js-file-line">	<span class="pl-s"><span class="pl-pds">&#8220;</span>Connection<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>Keep-Alive<span class="pl-pds">&#8220;</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-normal_header-json-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-normal_header-json-LC4" class="blob-code blob-code-inner js-file-line">	<span class="pl-s"><span class="pl-pds">&#8220;</span>Accept-Encoding<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>gzip<span class="pl-pds">&#8220;</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-normal_header-json-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-normal_header-json-LC5" class="blob-code blob-code-inner js-file-line">	<span class="pl-s"><span class="pl-pds">&#8220;</span>User-Agent<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>Mozilla<span class="pl-cce">\\</span>/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit<span class="pl-cce">\\</span>/537.36 (KHTML, like Gecko) Chrome<span class="pl-cce">\\</span>/71.0.3578.98 Safari<span class="pl-cce">\\</span>/537.36<span class="pl-pds">&#8220;</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-normal_header-json-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-normal_header-json-LC6" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/Raztor0/206175807d0f9d4ab26dc1bac4ac7dc5/raw/d7e5cfaefd43bc7e1180c0113b68258508ea4add/normal_header.json" style="float:right">view raw</a>
+        <a href="https://gist.github.com/Raztor0/206175807d0f9d4ab26dc1bac4ac7dc5#file-normal_header-json">normal_header.json</a>
+        hosted with <img draggable="false" class="emoji" alt="&#x2764;" src="https://s.w.org/images/core/emoji/11/svg/2764.svg" scale="0"> by <a href="https://github.com">GitHub</a>
+      </div>
+    </div>
+</div>
+
+
+
+<p>In the normal case, the &#8220;User-Agent&#8221; field looks very different and actually contains information about the browser which I used to access my web page.</p>
+
+
+
+<p>It turns out that we can use this subtle difference in User-Agent to serve Facebook&#8217;s bot a different response than we serve normal users.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<h4>User-Agent switching</h4>
+
+
+
+<p>If for every request we read the User-Agent field before serving our web page, we can switch on the User-Agent value to serve different responses for bots and for regular users.</p>
+
+
+
+<p>So what might we do differently for a bot so that it generates a preview for something other than our current web page? A simple solution is to simply return a 300 redirect to your target web page of choice.</p>
+
+
+
+<p>Here is some sample code which can do just that in PHP:</p>
+
+
+
+<link rel="stylesheet" href="https://github.githubassets.com/assets/gist-embed-d7f32d1731d95b9cb4d3c880c428c9e9.css">
+<div id="gist93814546" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-fb_bot_redirect-php" class="file">
+    
+
+  <div itemprop="text" class="blob-wrapper data type-php ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tbody><tr>
+        <td id="file-fb_bot_redirect-php-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-fb_bot_redirect-php-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span></td>
+      </tr>
+      <tr>
+        <td id="file-fb_bot_redirect-php-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-fb_bot_redirect-php-LC2" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"></span></td>
+      </tr>
+      <tr>
+        <td id="file-fb_bot_redirect-php-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-fb_bot_redirect-php-LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"><span class="pl-smi">$user_agent</span> <span class="pl-k">=</span> <span class="pl-smi">$_SERVER</span>[<span class="pl-s"><span class="pl-pds">&#8220;</span>HTTP_USER_AGENT<span class="pl-pds">&#8220;</span></span>];</span></td>
+      </tr>
+      <tr>
+        <td id="file-fb_bot_redirect-php-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-fb_bot_redirect-php-LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"></span></td>
+      </tr>
+      <tr>
+        <td id="file-fb_bot_redirect-php-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-fb_bot_redirect-php-LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"><span class="pl-k">if</span> (<span class="pl-c1">strpos</span>(<span class="pl-smi">$user_agent</span>, <span class="pl-s"><span class="pl-pds">&#8220;</span>facebookexternalhit<span class="pl-pds">&#8220;</span></span>) <span class="pl-k">!</span><span class="pl-k">==</span> <span class="pl-c1">false</span>) {</span></td>
+      </tr>
+      <tr>
+        <td id="file-fb_bot_redirect-php-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-fb_bot_redirect-php-LC6" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">    <span class="pl-c1">header</span>(<span class="pl-s"><span class="pl-pds">&#8220;</span>Location: <a class="vglnk" href="https://runescape.com" rel="nofollow"><span>https</span><span>://</span><span>runescape</span><span>.</span><span>com</span></a><span class="pl-pds">&#8220;</span></span>);</span></td>
+      </tr>
+      <tr>
+        <td id="file-fb_bot_redirect-php-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-fb_bot_redirect-php-LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">} <span class="pl-k">else</span> {</span></td>
+      </tr>
+      <tr>
+        <td id="file-fb_bot_redirect-php-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-fb_bot_redirect-php-LC8" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">  <span class="pl-c1">echo</span>(<span class="pl-s"><span class="pl-pds">&#8220;</span>poc.razb.me<span class="pl-pds">&#8220;</span></span>);</span></td>
+      </tr>
+      <tr>
+        <td id="file-fb_bot_redirect-php-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-fb_bot_redirect-php-LC9" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">}</span></td>
+      </tr>
+      <tr>
+        <td id="file-fb_bot_redirect-php-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-fb_bot_redirect-php-LC10" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"></span></td>
+      </tr>
+      <tr>
+        <td id="file-fb_bot_redirect-php-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-fb_bot_redirect-php-LC11" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"></span><span class="pl-pse"><span class="pl-s1">?</span>&gt;</span></td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/Raztor0/9573dcac3b76c446db9aa1a07760a0db/raw/26b6ce3e2ffe2f86c7ac2fd24eb6d3841c25fc82/fb_bot_redirect.php" style="float:right">view raw</a>
+        <a href="https://gist.github.com/Raztor0/9573dcac3b76c446db9aa1a07760a0db#file-fb_bot_redirect-php">fb_bot_redirect.php</a>
+        hosted with <img draggable="false" class="emoji" alt="&#x2764;" src="https://s.w.org/images/core/emoji/11/svg/2764.svg" scale="0"> by <a href="https://github.com">GitHub</a>
+      </div>
+    </div>
+</div>
+
+
+
+<p>In this example we simply set the &#8220;Location&#8221; header response to <a href="https://runescape.com">https://runescape.com</a>. This will tell Facebook&#8217;s bot to ignore whatever content it found at my URL poc.razb.me, and instead go looking at runescape.com. We can confirm that the bot is doing what we expect by using Facebook&#8217;s sharing debugger: <a href="https://developers.facebook.com/tools/debug/sharing/?q=https%3A%2F%2Fpoc.razb.me">https://developers.facebook.com/tools/debug/sharing/?q=https%3A%2F%2Fpoc.razb.me</a></p>
+
+
+
+<p>It turns out this is all it takes to spoof the Facebook URL preview bot. It is also possible to perform the same simple switch on iMessage, Twitter, and Reddit previews. Here are some examples:</p>
+
+
+
+<div class="wp-block-image"><figure class="alignleft"><img data-attachment-id="345" data-permalink="https://blog.razb.me/spoofing-url-previews/imessage_spoof/" data-orig-file="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/12/imessage_spoof.png?fit=618%2C456&amp;ssl=1" data-orig-size="618,456" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="imessage_spoof" data-image-description="" data-medium-file="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/12/imessage_spoof.png?fit=300%2C221&amp;ssl=1" data-large-file="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/12/imessage_spoof.png?fit=618%2C456&amp;ssl=1" src="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/12/imessage_spoof.png?w=750&#038;ssl=1" alt="" class="wp-image-345" srcset="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/12/imessage_spoof.png?w=618&amp;ssl=1 618w, https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/12/imessage_spoof.png?resize=300%2C221&amp;ssl=1 300w" sizes="(max-width: 618px) 100vw, 618px" data-recalc-dims="1" /><figcaption>iMessage preview spoof<br></figcaption></figure></div>
+
+
+
+
+
+<figure class="wp-block-image"><img data-attachment-id="346" data-permalink="https://blog.razb.me/spoofing-url-previews/image/" data-orig-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2018/12/image.png?fit=936%2C166&amp;ssl=1" data-orig-size="936,166" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="image" data-image-description="" data-medium-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2018/12/image.png?fit=300%2C53&amp;ssl=1" data-large-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2018/12/image.png?fit=750%2C133&amp;ssl=1" src="https://i1.wp.com/blog.razb.me/wp-content/uploads/2018/12/image.png?w=750&#038;ssl=1" alt="" class="wp-image-346" srcset="https://i1.wp.com/blog.razb.me/wp-content/uploads/2018/12/image.png?w=936&amp;ssl=1 936w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2018/12/image.png?resize=300%2C53&amp;ssl=1 300w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2018/12/image.png?resize=768%2C136&amp;ssl=1 768w" sizes="(max-width: 750px) 100vw, 750px" data-recalc-dims="1" /><figcaption>Reddit preview spoof</figcaption></figure>
+
+
+
+<figure class="wp-block-image"><img data-attachment-id="463" data-permalink="https://blog.razb.me/spoofing-url-previews/spoof_tweet/" data-orig-file="https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?fit=1284%2C788&amp;ssl=1" data-orig-size="1284,788" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="spoof_tweet" data-image-description="" data-medium-file="https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?fit=300%2C184&amp;ssl=1" data-large-file="https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?fit=750%2C460&amp;ssl=1" src="https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?fit=750%2C460&amp;ssl=1" alt="" class="wp-image-463" srcset="https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?w=1284&amp;ssl=1 1284w, https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?resize=300%2C184&amp;ssl=1 300w, https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?resize=768%2C471&amp;ssl=1 768w, https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?resize=1024%2C628&amp;ssl=1 1024w" sizes="(max-width: 750px) 100vw, 750px" /><figcaption>Twitter preview spoof<br><a href="https://twitter.com/test_raz/status/1079640248743837696">https://twitter.com/test_raz/status/1079640248743837696</a></figcaption></figure>
+
+
+
+<p>It&#8217;s important to note that both iMessage and Reddit actually preserve the original URL when generating the preview. This is a very good practise as it makes this sort of attack much less effective when the user can still see the original URL.</p>
+
+
+
+<p>However, in the case of Facebook and Twitter they use the redirected URL in the preview and omit the original URL entirely. This makes it possible to trick somebody into thinking that they are about to go to one domain when in fact they will be taken to another.</p>
+
+
+
+<hr class="wp-block-separator"/>
+
+
+
+<h4>Responsible Disclosure</h4>
+
+
+
+<p>Prior to posting this blog post, I reached out to Facebook and Twitter (via their respective bug bounty programs <a href="https://www.facebook.com/whitehat">here</a> and <a href="https://hackerone.com/twitter">here</a>) and made sure that they are aware of the trick that I outlined in this post. They both got back to me and said that it is too low risk and they have no plans on changing the current behaviour.</p>
+
+
+
+<p>So for the time being, pay extra close attention when clicking on content on Facebook and Twitter, and make sure the domain you end up at is the one you expected.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://blog.razb.me/spoofing-url-previews/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+	<post-id xmlns="com-wordpress:feed-additions:1">333</post-id>	</item>
+	</channel>
+</rss>

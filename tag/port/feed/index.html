@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+>
+
+<channel>
+	<title>port &#8211; Raz</title>
+	<atom:link href="https://blog.razb.me/tag/port/feed/" rel="self" type="application/rss+xml" />
+	<link>https://blog.razb.me</link>
+	<description>Computer stuff</description>
+	<lastBuildDate>Sun, 13 Jan 2019 01:25:31 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.0.3</generator>
+
+<image>
+	<url>https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/04/cropped-Untitled.png?fit=32%2C32&#038;ssl=1</url>
+	<title>port &#8211; Raz</title>
+	<link>https://blog.razb.me</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">108306310</site>	<item>
+		<title>Around the world in 15 seconds</title>
+		<link>https://blog.razb.me/around-the-world-in-15-seconds/</link>
+		<comments>https://blog.razb.me/around-the-world-in-15-seconds/#comments</comments>
+		<pubDate>Sat, 19 Mar 2016 19:21:31 +0000</pubDate>
+		<dc:creator><![CDATA[Raz]]></dc:creator>
+				<category><![CDATA[Networking]]></category>
+		<category><![CDATA[15s]]></category>
+		<category><![CDATA[around]]></category>
+		<category><![CDATA[circumnavigating]]></category>
+		<category><![CDATA[forwarding]]></category>
+		<category><![CDATA[in]]></category>
+		<category><![CDATA[port]]></category>
+		<category><![CDATA[ssh]]></category>
+		<category><![CDATA[the]]></category>
+		<category><![CDATA[world]]></category>
+
+		<guid isPermaLink="false">http://razb.me/?p=48</guid>
+		<description><![CDATA[The first aerial circumnavigation of the world was performed in 1924 by the United States Army Air Service. The trip took 175 days and covered over 27,000 miles. Today, we are going to circumnavigate the world in&#160;under 15&#160;seconds. In order to achieve this, what we are going to do is<a class="moretag" href="https://blog.razb.me/around-the-world-in-15-seconds/"> Read more&#8230;</a>]]></description>
+				<content:encoded><![CDATA[<p>The <a href="https://en.wikipedia.org/wiki/First_aerial_circumnavigation" target="_blank" rel="noopener">first aerial circumnavigation</a> of the world was performed in 1924 by the United States Army Air Service. The trip took 175 days and covered over 27,000 miles. Today, we are going to circumnavigate the world in&nbsp;under 15&nbsp;seconds.</p>
+<p>In order to achieve this, what we are going to do is link together a chain of computers starting with yours, going all the way around the world, and ending right back where it started; with yours. After setting that up, we will be sending a picture of yourself from yourself to yourself, and in the process circumnavigating the world.</p>
+<p>Before we begin, I will be using <a href="https://www.digitalocean.com/" target="_blank" rel="noopener">DigitalOcean</a>&nbsp;to spin up our servers. If you want to follow along at home, DigitalOcean offers new users a promo code to get you up and running for free. Use:&nbsp;<strong>DONEWS&nbsp;</strong>or you can use my personal promo url:&nbsp;<strong><a href="https://m.do.co/c/74fd80a9022a" target="_blank" rel="noopener">m.do.co/c/74fd80a9022a</a>&nbsp;</strong>the choice is yours.</p>
+<p>After creating an account with DigitalOcean, you will want to set up an SSH key for use with your servers. DigitalOcean has a great <a href="https://www.digitalocean.com/community/tutorials/how-to-use-ssh-keys-with-digitalocean-droplets" target="_blank" rel="noopener">tutorial on how to set that up</a> which you should follow and complete before reading further.</p>
+<p>Now, we will spin up 6 servers, one in each of the following data centres: San Fransisco, New York, London, Amsterdam, Frankfurt, and Singapore. Upon creating each server, select Ubuntu 14.04.4, the $5/month option, and add your SSH key.</p>
+<blockquote><p>NOTE: All commands in this tutorial are assumed to be executed by the root user.</p></blockquote>
+<p>Once all of your servers are up and running, SSH into every one of them and set a root password. For the sake of simplicity, we will be communicating between our servers via SSH root@host. You probably do not want to do this in practise.</p>
+<p>Before we go any further, it may be worth confirming that a request from Singapore-&gt;San Fransisco does indeed go across the Pacific Ocean to complete the loop around the world. In order to do that, SSH into your Singapore machine and type in the following command:</p><pre class="crayon-plain-tag">$ traceroute &lt;San Fransisco IP Address&gt; -T</pre><p>Replacing <strong>&lt;San Fransisco IP Address&gt;</strong> with the actual address of your San Fransisco server.</p>
+<p>If all goes well, you should see output similar to this:</p><pre class="crayon-plain-tag">root@AroundTheWorldSingapore:~# traceroute 192.241.221.191 -T
+traceroute to 192.241.221.191 (192.241.221.191), 30 hops max, 60 byte packets
+ 1  128.199.191.253 (128.199.191.253)  0.477 ms 128.199.191.254 (128.199.191.254)  0.474 ms  0.452 ms
+ 2  103.253.144.233 (103.253.144.233)  0.440 ms 103.253.144.229 (103.253.144.229)  0.449 ms  0.429 ms
+ 3  116.51.27.189 (116.51.27.189)  1.371 ms 103.253.144.249 (103.253.144.249)  0.440 ms 116.51.27.189 (116.51.27.189)  1.596 ms
+ 4  ae-1.r20.sngpsi05.sg.bb.gin.ntt.net (129.250.3.146)  14.718 ms 116.51.27.189 (116.51.27.189)  1.692 ms ae-1.r20.sngpsi05.sg.bb.gin.ntt.net (129.250.3.146)  14.708 ms
+ 5  ae-8.r22.snjsca04.us.bb.gin.ntt.net (129.250.3.48)  167.050 ms  178.774 ms ae-1.r20.sngpsi05.sg.bb.gin.ntt.net (129.250.3.146)  14.732 ms
+ 6  ae-19.r01.snjsca04.us.bb.gin.ntt.net (129.250.3.27)  181.920 ms ae-8.r22.snjsca04.us.bb.gin.ntt.net (129.250.3.48)  168.298 ms  169.413 ms
+ 7  ae-40.r02.snjsca04.us.bb.gin.ntt.net (129.250.3.121)  175.240 ms ae-4.r05.plalca01.us.bb.gin.ntt.net (129.250.5.32)  197.201 ms ae-40.r02.snjsca04.us.bb.gin.ntt.net (129.250.3.121)  187.610 ms
+ 8  xe-0-4-0-17.r06.plalca01.us.ce.gin.ntt.net (129.250.203.82)  168.083 ms ae-4.r05.plalca01.us.bb.gin.ntt.net (129.250.5.32)  182.682 ms xe-0-0-0-23.r05.plalca01.us.ce.gin.ntt.net (129.250.204.118)  181.313 ms
+ 9  xe-0-0-0-23.r05.plalca01.us.ce.gin.ntt.net (129.250.204.118)  186.122 ms 198.199.99.238 (198.199.99.238)  184.223 ms xe-0-4-0-17.r06.plalca01.us.ce.gin.ntt.net (129.250.203.82)  178.457 ms
+10  192.241.221.191 (192.241.221.191)  186.219 ms  176.327 ms  172.506 ms</pre><p>Taking a look at lines 4 and 5, we can see that our packet went from sg.bb.gin.ntt.net to us.bb.gin.ntt.net and the time across those two nodes spiked from 14.718ms to 167.050ms. This is pretty promising that our packets do in fact cross the ocean. Now we can continue with linking our servers together.</p>
+<p>In order to move data from one server to another, we&#8217;re going to use <a href="https://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding#Port_Forwarding_Explained" target="_blank" rel="noopener">SSH&nbsp;port forwarding</a>. In this tutorial I will explain how to do this for the first and last server, and the process for the ones in the middle is pretty much identical.</p>
+<p>SSH into all of your servers, modify /etc/ssh/sshd_config, and add the following line to the file:</p><pre class="crayon-plain-tag">GatewayPorts clientspecified</pre><p>After saving, restart ssh:</p><pre class="crayon-plain-tag">$ service ssh restart</pre><p>This allows us to specify which interface the next machine in the chain should listen on.</p>
+<p>Now, from your San Fransisco server, execute the following command:</p><pre class="crayon-plain-tag">$ screen ssh -L &lt;San Fransisco IP Address&gt;:4455:&lt;New York IP Address&gt;:4455&nbsp;&lt;New York IP Address&gt;</pre><p>This tells our San Fransisco server to forward all requests to its port 4455 over to our New York Server&#8217;s port 4455. Repeat this process for New York -&gt; London, London -&gt; Amsterdam, Amsterdam -&gt; Frankfurt, and lastly Frankfurt -&gt; Singapore.</p>
+<blockquote><p>If you are using OSX, before going onto the last step you need to allow remote login to your mac. To do this, go to Settings -&gt; Sharing-&gt; Remote Login. Make sure it is checked.</p></blockquote>
+<p class="p1"><span class="s1">For the last link in the chain, we must hook up our Singapore server to our local computer. From your personal computer, execute the following command:</span></p>
+<p></p><pre class="crayon-plain-tag">$ screen ssh -R &lt;Singapore IP Address&gt;:4455:localhost:22&nbsp;&lt;Singapore IP Address&gt;</pre><p></p>
+<p class="p1"><span class="s1">At this point, you now have a complete chain of computers starting from San Fransisco, around the world to Singapore, and finally crossing the Pacific Ocean and back to your personal computer.</span></p>
+<p class="p1">Now, it is time to actually send a picture of yourself around the world.</p>
+<p class="p1">Navigate to the directory of the picture you want to send, and execute the following command:</p>
+<p></p><pre class="crayon-plain-tag">$ scp -P 4455 &lt;picture&gt; root@&lt;San Fransisco IP Address&gt;:/</pre><p></p>
+<p class="p1">This command is normally used to copy the file &lt;picture&gt; from your local machine to the / directory of the San Fransisco server. However, since we are specifying -P 4455, which the San Fransisco server is forwarding to New York, the copy file command gets forwarded to the New York server instead. And since the New York server is forwarding port 4455, the chain goes on all the way up to Singapore which is configured to forward its port 4455 to your local personal computer&#8217;s port 22.</p>
+<p class="p1">Your beautiful picture travelled from your computer to San Fransisco, New York, London, Amsterdam, Frankfurt, Singapore, and back to your computer.</p>
+<p class="p1">Congratulations! You have officially gone around the world!</p>
+<p class="p1">A quick time profile gives us the following results:</p>
+<p></p><pre class="crayon-plain-tag">root@Razvans-MacBook-Pro Desktop $ time scp -P 4455 selfie.JPG root@192.241.221.191:/
+selfie.JPG                       100%   19KB  19.4KB/s   00:00    
+
+real	0m12.866s
+user	0m0.019s
+sys	0m0.009s</pre><p>Alas in just 12.866 seconds you have travelled over 20,000 miles. You deserve a break.</p>
+<p class="p1">
+]]></content:encoded>
+			<wfw:commentRss>https://blog.razb.me/around-the-world-in-15-seconds/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+	<post-id xmlns="com-wordpress:feed-additions:1">48</post-id>	</item>
+	</channel>
+</rss>

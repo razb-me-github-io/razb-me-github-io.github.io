@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset='UTF-8'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../cdn-cgi/apps/head/1BY2f2zT8KygC6POfiT9T-bUTpY.js"></script><link rel="profile" href="https://gmpg.org/xfn/11">
+<link rel="pingback" href="https://blog.razb.me/xmlrpc.php">
+<title>Spoofing URL previews &#8211; Raz</title>
+<link rel='dns-prefetch' href='https://s0.wp.com/' />
+<link rel='dns-prefetch' href='https://maxcdn.bootstrapcdn.com/' />
+<link rel='dns-prefetch' href='https://fonts.googleapis.com/' />
+<link rel='dns-prefetch' href='https://s.w.org/' />
+<link rel="alternate" type="application/rss+xml" title="Raz &raquo; Feed" href="../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Raz &raquo; Comments Feed" href="../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Raz &raquo; Spoofing URL previews Comments Feed" href="feed/index.html" />
+<script type="750f4ed5873f1888a049f3c0-text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/blog.razb.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.0.3"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+<link rel='stylesheet' id='crayon-css' href='../wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css%3Fver=_2.7.2_beta.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css' href='../wp-includes/css/dist/block-library/style.min.css%3Fver=5.0.3.css' type='text/css' media='all' />
+<link rel='stylesheet' id='hestia-clients-bar-css' href='../wp-content/plugins/themeisle-companion/obfx_modules/companion-legacy/assets/css/hestia/clients-bar.css%3Fver=5.0.3.css' type='text/css' media='all' />
+<link rel='stylesheet' id='dashicons-css' href='../wp-includes/css/dashicons.min.css%3Fver=5.0.3.css' type='text/css' media='all' />
+<link rel='stylesheet' id='obfx-module-pub-css-menu-icons-0-css' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css?ver=2.7.3' type='text/css' media='all' />
+<link rel='stylesheet' id='obfx-module-pub-css-menu-icons-1-css' href='../wp-content/plugins/themeisle-companion/obfx_modules/menu-icons/css/public.css%3Fver=2.7.3.css' type='text/css' media='all' />
+<link rel='stylesheet' id='bootstrap-css' href='../wp-content/themes/hestia/assets/bootstrap/css/bootstrap.min.css%3Fver=1.0.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-css' href='../wp-content/themes/hestia/assets/font-awesome/css/font-awesome.min.css%3Fver=1.0.1.css' type='text/css' media='all' />
+<link rel='stylesheet' id='hestia-font-sizes-css' href='../wp-content/themes/hestia/assets/css/font-sizes.css%3Fver=1.1.71.css' type='text/css' media='all' />
+<link rel='stylesheet' id='hestia_style-css' href='../wp-content/themes/hestia/style.css%3Fver=1.1.71.css' type='text/css' media='all' />
+<style id='hestia_style-inline-css' type='text/css'>
+
+
+.header-filter.header-filter-gradient:before {
+	background-color: transparent;
+} 	
+a, 
+.navbar .dropdown-menu li:hover > a,
+.navbar .dropdown-menu li:focus > a,
+.navbar .dropdown-menu li:active > a,
+.navbar.navbar-not-transparent .nav > li:not(.btn).on-section > a, 
+.navbar.navbar-not-transparent .nav > li.on-section:not(.btn) > a, 
+.navbar.navbar-not-transparent .nav > li.on-section:not(.btn):hover > a, 
+.navbar.navbar-not-transparent .nav > li.on-section:not(.btn):focus > a, 
+.navbar.navbar-not-transparent .nav > li.on-section:not(.btn):active > a, 
+body:not(.home) .navbar-default .navbar-nav > .active:not(.btn) > a,
+body:not(.home) .navbar-default .navbar-nav > .active:not(.btn) > a:hover,
+body:not(.home) .navbar-default .navbar-nav > .active:not(.btn) > a:focus,
+.hestia-blogs article:nth-child(6n+1) .category a, a:hover, .card-blog a.moretag:hover, .card-blog a.more-link:hover, .widget a:hover {
+    color:#e91e63;
+}
+
+.pagination span.current, .pagination span.current:focus, .pagination span.current:hover {
+	border-color:#e91e63
+}
+           
+button,
+button:hover,           
+input[type="button"],
+input[type="button"]:hover,
+input[type="submit"],
+input[type="submit"]:hover,
+input#searchsubmit, 
+.pagination span.current, 
+.pagination span.current:focus, 
+.pagination span.current:hover,
+.btn.btn-primary,
+.btn.btn-primary:link,
+.btn.btn-primary:hover, 
+.btn.btn-primary:focus, 
+.btn.btn-primary:active, 
+.btn.btn-primary.active, 
+.btn.btn-primary.active:focus, 
+.btn.btn-primary.active:hover,
+.btn.btn-primary:active:hover, 
+.btn.btn-primary:active:focus, 
+.btn.btn-primary:active:hover,
+.hestia-sidebar-open.btn.btn-rose,
+.hestia-sidebar-close.btn.btn-rose,
+.hestia-sidebar-open.btn.btn-rose:hover,
+.hestia-sidebar-close.btn.btn-rose:hover,
+.hestia-sidebar-open.btn.btn-rose:focus,
+.hestia-sidebar-close.btn.btn-rose:focus,
+.label.label-primary,
+.hestia-work .portfolio-item:nth-child(6n+1) .label,
+.nav-cart .nav-cart-content .widget .buttons .button{
+    background-color: #e91e63;
+}
+
+@media (max-width: 768px) { 
+	
+	.navbar-default .navbar-nav>li>a:hover,
+	.navbar-default .navbar-nav>li>a:focus,
+	.navbar .navbar-nav .dropdown .dropdown-menu li a:hover,
+	.navbar .navbar-nav .dropdown .dropdown-menu li a:focus,
+	.navbar button.navbar-toggle:hover,
+	.navbar .navbar-nav li:hover > a i {
+	    color: #e91e63;
+	}
+}
+
+button,
+.button,
+input[type="submit"], 
+input[type="button"], 
+.btn.btn-primary,
+.hestia-sidebar-open.btn.btn-rose,
+.hestia-sidebar-close.btn.btn-rose {
+    -webkit-box-shadow: 0 2px 2px 0 rgba(233,30,99,0.14),0 3px 1px -2px rgba(233,30,99,0.2),0 1px 5px 0 rgba(233,30,99,0.12);
+    box-shadow: 0 2px 2px 0 rgba(233,30,99,0.14),0 3px 1px -2px rgba(233,30,99,0.2),0 1px 5px 0 rgba(233,30,99,0.12);
+}
+
+.card .header-primary, .card .content-primary {
+    background: #e91e63;
+}
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+input#searchsubmit:hover, 
+.pagination span.current, 
+.btn.btn-primary:hover, 
+.btn.btn-primary:focus, 
+.btn.btn-primary:active, 
+.btn.btn-primary.active, 
+.btn.btn-primary:active:focus, 
+.btn.btn-primary:active:hover, 
+.hestia-sidebar-open.btn.btn-rose:hover,
+.hestia-sidebar-close.btn.btn-rose:hover,
+.pagination span.current:hover{
+	-webkit-box-shadow: 0 14px 26px -12pxrgba(233,30,99,0.42),0 4px 23px 0 rgba(0,0,0,0.12),0 8px 10px -5px rgba(233,30,99,0.2);
+    box-shadow: 0 14px 26px -12px rgba(233,30,99,0.42),0 4px 23px 0 rgba(0,0,0,0.12),0 8px 10px -5px rgba(233,30,99,0.2);
+	color: #fff;
+}
+.form-group.is-focused .form-control {
+background-image: -webkit-gradient(linear,left top, left bottom,from(#e91e63),to(#e91e63)),-webkit-gradient(linear,left top, left bottom,from(#d2d2d2),to(#d2d2d2));
+	background-image: -webkit-linear-gradient(#e91e63),to(#e91e63),-webkit-linear-gradient(#d2d2d2,#d2d2d2);
+	background-image: linear-gradient(#e91e63),to(#e91e63),linear-gradient(#d2d2d2,#d2d2d2);
+}
+ .navbar:not(.navbar-transparent) li:not(.btn):hover > a,
+ .navbar.full-screen-menu.navbar-transparent li:not(.btn):hover > a,
+ .navbar.full-screen-menu .navbar-toggle:hover,
+ .navbar:not(.navbar-transparent) .nav-cart:hover, 
+ .navbar:not(.navbar-transparent) .hestia-toggle-search:hover {
+		 color:#e91e63}
+.header-filter-gradient { 
+	background: linear-gradient(45deg, rgb(168,29,132) 0%, rgb(234,57,111) 100%); 
+} 
+.hestia-top-bar, .hestia-top-bar .widget.widget_shopping_cart .cart_list {
+			background-color: #363537
+		}
+		.hestia-top-bar .widget .label-floating input[type=search]:-webkit-autofill {
+			-webkit-box-shadow: inset 0 0 0px 9999px #363537
+		}.hestia-top-bar, .hestia-top-bar .widget .label-floating input[type=search], .hestia-top-bar .widget.widget_search form.form-group:before, .hestia-top-bar .widget.widget_product_search form.form-group:before, .hestia-top-bar .widget.widget_shopping_cart:before {
+			color: #ffffff
+		} 
+		.hestia-top-bar .widget .label-floating input[type=search]{
+			-webkit-text-fill-color:#ffffff !important 
+		}.hestia-top-bar a, .hestia-top-bar .top-bar-nav li a {
+			color: #ffffff
+		}.hestia-top-bar a:hover, .hestia-top-bar .top-bar-nav li a:hover {
+			color: #eeeeee
+		}
+
+		.page-template-builder-fullwidth-std .header > .elementor {
+			padding-top: 70px;
+		}
+
+</style>
+<link rel='stylesheet' id='hestia_fonts-css' href='https://fonts.googleapis.com/css?family=Roboto%3A300%2C400%2C500%2C700%7CRoboto+Slab%3A400%2C700&#038;subset=latin%2Clatin-ext&#038;ver=1.1.71' type='text/css' media='all' />
+
+<link rel='stylesheet' id='jetpack_css-css' href='../wp-content/plugins/jetpack/css/jetpack.css%3Fver=6.8.1.css' type='text/css' media='all' />
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-includes/js/jquery/jquery.js%3Fver=1.12.4'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-includes/js/jquery/jquery-migrate.min.js%3Fver=1.4.1'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript">
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+/* ]]> */
+</script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-content/plugins/jetpack/_inc/build/related-posts/related-posts.min.js%3Fver=20150408'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/blog.razb.me\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js%3Fver=_2.7.2_beta'></script>
+<link rel='https://api.w.org/' href='../wp-json/index.html' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../xmlrpc.php%3Frsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../wp-includes/wlwmanifest.xml" />
+<link rel='prev' title='Pulling apart an iOS App' href='../pulling-apart-an-ios-app/index.html' />
+<meta name="generator" content="WordPress 5.0.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='https://wp.me/p7krpY-5n' />
+<link rel="alternate" type="application/json+oembed" href="../wp-json/oembed/1.0/embed%3Furl=https:%252F%252Fblog.razb.me%252Fspoofing-url-previews%252F" />
+<link rel="alternate" type="text/xml+oembed" href="../wp-json/oembed/1.0/embed%3Furl=https:%252F%252Fblog.razb.me%252Fspoofing-url-previews%252F&amp;format=xml" />
+
+<link rel='dns-prefetch' href='https://v0.wordpress.com/' />
+<link rel='dns-prefetch' href='https://i0.wp.com/' />
+<link rel='dns-prefetch' href='https://i1.wp.com/' />
+<link rel='dns-prefetch' href='https://i2.wp.com/' />
+<style type='text/css'>img#wpstats{display:none}</style>
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Spoofing URL previews" />
+<meta property="og:url" content="https://blog.razb.me/spoofing-url-previews/" />
+<meta property="og:description" content="The rise of social media has enabled us to share content with one another at an unprecedented rate. From Facebook to Twitter to Reddit to iMessage we&#8217;re sharing things that we&#8217;ve found …" />
+<meta property="article:published_time" content="2018-12-31T09:38:02+00:00" />
+<meta property="article:modified_time" content="2019-01-13T01:25:31+00:00" />
+<meta property="og:site_name" content="Raz" />
+<meta property="og:image" content="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/12/Facebook_icon_2013.svg_.png?fit=1000%2C1000&amp;ssl=1" />
+<meta property="og:image:width" content="1000" />
+<meta property="og:image:height" content="1000" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:text:title" content="Spoofing URL previews" />
+<meta name="twitter:image" content="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/12/Facebook_icon_2013.svg_.png?fit=1000%2C1000&#038;ssl=1&#038;w=640" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="icon" href="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/04/cropped-Untitled.png?fit=32%2C32&#038;ssl=1" sizes="32x32" />
+<link rel="icon" href="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/04/cropped-Untitled.png?fit=192%2C192&#038;ssl=1" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/04/cropped-Untitled.png?fit=180%2C180&#038;ssl=1" />
+<meta name="msapplication-TileImage" content="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/04/cropped-Untitled.png?fit=270%2C270&#038;ssl=1" />
+
+<script type="750f4ed5873f1888a049f3c0-text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-47022454-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+<!--[if lte IE 8]>
+<link rel='stylesheet' id='jetpack-carousel-ie8fix-css'  href='https://blog.razb.me/wp-content/plugins/jetpack/modules/carousel/jetpack-carousel-ie8fix.css?ver=20121024' type='text/css' media='all' />
+<![endif]-->
+</head>
+<body class="post-template-default single single-post postid-333 single-format-standard blog-post">
+<div class="wrapper post-333 post type-post status-publish format-standard has-post-thumbnail hentry category-social-media tag-facebook tag-imessage tag-phishing tag-reddit tag-social-media tag-spoofing tag-twitter">
+<header class="header ">
+<nav class="navbar navbar-default navbar-fixed-top  hestia_left navbar-not-transparent">
+<div class="container">
+<div class="navbar-header">
+<div class="title-logo-wrapper">
+<a class="navbar-brand" href="../index.html" title="Raz"><p>Raz</p></a>
+</div>
+</div>
+</div>
+</nav>
+<div id="primary" class="boxed-layout-header page-header header-small" data-parallax="active">
+<div class="container">
+<div class="row">
+<div class="col-md-10 col-md-offset-1 text-center">
+<h1 class="hestia-title 
+					">Spoofing URL previews</h1>
+<h4 class="author">
+Published by <a href="../author/raz/index.html" class="vcard author"><strong class="fn">Raz</strong></a> on <time class="date updated published" datetime="2018-12-31T04:38:02+00:00">December 31, 2018</time> </h4>
+</div>
+</div>
+</div>
+<div class="header-filter" style="background-image: url(../wp-content/uploads/2018/12/Facebook_icon_2013.svg_.png);"></div> </div>
+</header>
+<div class="main  main-raised default">
+<div class="blog-post blog-post-wrapper">
+<div class="container">
+<div class="row">
+<div class=" col-md-8 col-md-offset-2 single-post-wrap">
+<article id="post-333" class="section section-text">
+<p>The rise of social media has enabled us to share content with one another at an unprecedented rate. From Facebook to Twitter to Reddit to iMessage we&#8217;re sharing things that we&#8217;ve found on the internet more and more, so much so that it became difficult to decide what&#8217;s worth clicking on and what isn&#8217;t when we&#8217;re being presented with vast amounts of content summarized in the form of a URL. To solve this problem, URL previews were created.</p>
+<hr class="wp-block-separator" />
+<h4>So what is a URL preview?</h4>
+<p>A URL preview is something which we&#8217;ve all seen while we browse the internet. Somebody shares a URL to some piece of content, usually a web page, and the social platform which we&#8217;re browsing automatically generates a preview of the content found at the URL. In the example Facebook post below, I am sharing a URL to one of my favourite games, RuneScape:</p>
+<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Frazvan.mcbang%2Fposts%2F105811240495300&amp;width=500" width="500" height="491"></iframe>
+<p>These previews are generally very helpful and provide us with rich context surrounding what sort of content we can expect to find if we were to actually click on the URL. In the example above, we get several pieces of information:</p>
+<ul><li>A main picture which is supposed to depict what we might see when we click the link</li><li>The actual domain name which we can expect to find ourselves at when we click the link</li><li>A short textual description of what the web page is about</li></ul>
+<p>Upon seeing the above post you might expect that clicking on the post will take you to <a href="http://runescape.com">runescape.com</a> and that the web page will look roughly as you expect it to look based on the preview provided by Facebook. However if you go ahead and actually click on the post above, you&#8217;ll find yourself at my proof-of-concept website instead: <a href="https://poc.razb.me">poc.razb.me</a></p>
+<hr class="wp-block-separator" />
+<h4>How are URL previews created?</h4>
+<p>In order to understand how a URL preview might be spoofed, we must first understand how a URL preview is created. I will be using Facebook as my example platform, but all platforms which provide this sort of preview will function in a similar manner.</p>
+<p>There are really only three main steps in generating a URL preview:</p>
+<ol><li>Download a copy of the web page found at the URL</li><li>Inspect it for various metadata tags</li><li>Generate the preview</li></ol>
+<p>The first step should be pretty straightforward, just make a GET request to the URL and save the resulting HTML.</p>
+<p>The second step is specific to the platform. Each platform defines its own set of metadata tags which can be added to the HTML of any webpage for providing information to be used for populating URL previews. You can find out all about these HTML tags here: <a href="https://developers.facebook.com/docs/sharing/webmasters/">https://developers.facebook.com/docs/sharing/webmasters/</a></p>
+<p>The third step is to put together the information provided via the metadata tags into a visual format which becomes the URL preview.</p>
+<hr class="wp-block-separator" />
+<h4>How can we spoof the preview generation?</h4>
+<p>So far everything looks fine. I share a URL, Facebook fetches that web page and parses the HTML tags then generates the preview from them. How can we possibly spoof any of this? We don&#8217;t necessarily own the web page which we&#8217;re linking to, so what can we do?</p>
+<p>Let&#8217;s try sharing a URL to a web page which we do own and check the GET request which Facebook makes.</p>
+<p>Upon inspection, when Facebook makes a GET request to my proof-of-concept domain, the headers look something like this:</p>
+<link rel="stylesheet" href="https://github.githubassets.com/assets/gist-embed-d7f32d1731d95b9cb4d3c880c428c9e9.css">
+<div id="gist93814398" class="gist">
+<div class="gist-file">
+ <div class="gist-data">
+<div class="js-gist-file-update-container js-task-list-container file-box">
+<div id="file-facebook_header-json" class="file">
+<div itemprop="text" class="blob-wrapper data type-json ">
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+<tbody><tr>
+<td id="file-facebook_header-json-L1" class="blob-num js-line-number" data-line-number="1"></td>
+<td id="file-facebook_header-json-LC1" class="blob-code blob-code-inner js-file-line">{</td>
+</tr>
+<tr>
+<td id="file-facebook_header-json-L2" class="blob-num js-line-number" data-line-number="2"></td>
+<td id="file-facebook_header-json-LC2" class="blob-code blob-code-inner js-file-line"> <span class="pl-s"><span class="pl-pds">&#8220;</span>Host<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>poc.razb.me<span class="pl-pds">&#8220;</span></span>,</td>
+</tr>
+<tr>
+<td id="file-facebook_header-json-L3" class="blob-num js-line-number" data-line-number="3"></td>
+<td id="file-facebook_header-json-LC3" class="blob-code blob-code-inner js-file-line"> <span class="pl-s"><span class="pl-pds">&#8220;</span>Connection<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>Keep-Alive<span class="pl-pds">&#8220;</span></span>,</td>
+</tr>
+<tr>
+<td id="file-facebook_header-json-L4" class="blob-num js-line-number" data-line-number="4"></td>
+<td id="file-facebook_header-json-LC4" class="blob-code blob-code-inner js-file-line"> <span class="pl-s"><span class="pl-pds">&#8220;</span>Accept-Encoding<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>gzip<span class="pl-pds">&#8220;</span></span>,</td>
+</tr>
+<tr>
+<td id="file-facebook_header-json-L5" class="blob-num js-line-number" data-line-number="5"></td>
+<td id="file-facebook_header-json-LC5" class="blob-code blob-code-inner js-file-line"> <span class="pl-s"><span class="pl-pds">&#8220;</span>Accept<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>*<span class="pl-cce">\\</span>/*<span class="pl-pds">&#8220;</span></span>,</td>
+</tr>
+<tr>
+<td id="file-facebook_header-json-L6" class="blob-num js-line-number" data-line-number="6"></td>
+<td id="file-facebook_header-json-LC6" class="blob-code blob-code-inner js-file-line"> <span class="pl-s"><span class="pl-pds">&#8220;</span>User-Agent<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>facebookexternalhit<span class="pl-cce">\\</span>/1.1 (+http:<span class="pl-cce">\\</span>/<span class="pl-cce">\\</span>/<a class="vglnk" href="https://www.facebook.com" rel="nofollow"><span>www</span><span>.</span><span>facebook</span><span>.</span><span>com</span></a><span class="pl-cce">\\</span>/externalhit_uatext.php)<span class="pl-pds">&#8220;</span></span>,</td>
+</tr>
+<tr>
+<td id="file-facebook_header-json-L7" class="blob-num js-line-number" data-line-number="7"></td>
+<td id="file-facebook_header-json-LC7" class="blob-code blob-code-inner js-file-line">}</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</div>
+</div>
+<div class="gist-meta">
+<a href="https://gist.github.com/Raztor0/e57f5fd2fd26df06fc32d73894956ebf/raw/3456fd805c0e2f2dcb42e38315a6924170e97e84/facebook_header.json" style="float:right">view raw</a>
+<a href="https://gist.github.com/Raztor0/e57f5fd2fd26df06fc32d73894956ebf#file-facebook_header-json">facebook_header.json</a>
+hosted with <img draggable="false" class="emoji" alt="❤" src="https://s.w.org/images/core/emoji/11/svg/2764.svg" scale="0"> by <a href="https://github.com">GitHub</a>
+</div>
+</div>
+</div>
+<p>The field worth noting is the &#8220;User-Agent&#8221; field. This is used as a courtesy by the client requesting our web page and it lets us know what sort of browser (or in this case bot) was used to access our web page.</p>
+<p>In the case of the Facebook URL preview generation, Facebook&#8217;s bot configured the &#8220;User-Agent&#8221; field to something specific to their use case and they call it &#8220;facebookexternalhit&#8221;.</p>
+<p>For a normal user like you or I requesting my web page, the header will look something like this:</p>
+<link rel="stylesheet" href="https://github.githubassets.com/assets/gist-embed-d7f32d1731d95b9cb4d3c880c428c9e9.css">
+<div id="gist93814446" class="gist">
+<div class="gist-file">
+<div class="gist-data">
+<div class="js-gist-file-update-container js-task-list-container file-box">
+<div id="file-normal_header-json" class="file">
+<div itemprop="text" class="blob-wrapper data type-json ">
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+<tbody><tr>
+<td id="file-normal_header-json-L1" class="blob-num js-line-number" data-line-number="1"></td>
+<td id="file-normal_header-json-LC1" class="blob-code blob-code-inner js-file-line">{</td>
+</tr>
+<tr>
+<td id="file-normal_header-json-L2" class="blob-num js-line-number" data-line-number="2"></td>
+<td id="file-normal_header-json-LC2" class="blob-code blob-code-inner js-file-line"> <span class="pl-s"><span class="pl-pds">&#8220;</span>Host<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>poc.razb.me<span class="pl-pds">&#8220;</span></span>,</td>
+</tr>
+<tr>
+<td id="file-normal_header-json-L3" class="blob-num js-line-number" data-line-number="3"></td>
+<td id="file-normal_header-json-LC3" class="blob-code blob-code-inner js-file-line"> <span class="pl-s"><span class="pl-pds">&#8220;</span>Connection<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>Keep-Alive<span class="pl-pds">&#8220;</span></span>,</td>
+</tr>
+<tr>
+<td id="file-normal_header-json-L4" class="blob-num js-line-number" data-line-number="4"></td>
+<td id="file-normal_header-json-LC4" class="blob-code blob-code-inner js-file-line"> <span class="pl-s"><span class="pl-pds">&#8220;</span>Accept-Encoding<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>gzip<span class="pl-pds">&#8220;</span></span>,</td>
+</tr>
+<tr>
+<td id="file-normal_header-json-L5" class="blob-num js-line-number" data-line-number="5"></td>
+<td id="file-normal_header-json-LC5" class="blob-code blob-code-inner js-file-line"> <span class="pl-s"><span class="pl-pds">&#8220;</span>User-Agent<span class="pl-pds">&#8220;</span></span>: <span class="pl-s"><span class="pl-pds">&#8220;</span>Mozilla<span class="pl-cce">\\</span>/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit<span class="pl-cce">\\</span>/537.36 (KHTML, like Gecko) Chrome<span class="pl-cce">\\</span>/71.0.3578.98 Safari<span class="pl-cce">\\</span>/537.36<span class="pl-pds">&#8220;</span></span>,</td>
+</tr>
+<tr>
+<td id="file-normal_header-json-L6" class="blob-num js-line-number" data-line-number="6"></td>
+<td id="file-normal_header-json-LC6" class="blob-code blob-code-inner js-file-line">}</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</div>
+</div>
+<div class="gist-meta">
+<a href="https://gist.github.com/Raztor0/206175807d0f9d4ab26dc1bac4ac7dc5/raw/d7e5cfaefd43bc7e1180c0113b68258508ea4add/normal_header.json" style="float:right">view raw</a>
+<a href="https://gist.github.com/Raztor0/206175807d0f9d4ab26dc1bac4ac7dc5#file-normal_header-json">normal_header.json</a>
+hosted with <img draggable="false" class="emoji" alt="❤" src="https://s.w.org/images/core/emoji/11/svg/2764.svg" scale="0"> by <a href="https://github.com">GitHub</a>
+</div>
+</div>
+</div>
+<p>In the normal case, the &#8220;User-Agent&#8221; field looks very different and actually contains information about the browser which I used to access my web page.</p>
+<p>It turns out that we can use this subtle difference in User-Agent to serve Facebook&#8217;s bot a different response than we serve normal users.</p>
+<hr class="wp-block-separator" />
+<h4>User-Agent switching</h4>
+<p>If for every request we read the User-Agent field before serving our web page, we can switch on the User-Agent value to serve different responses for bots and for regular users.</p>
+<p>So what might we do differently for a bot so that it generates a preview for something other than our current web page? A simple solution is to simply return a 300 redirect to your target web page of choice.</p>
+<p>Here is some sample code which can do just that in PHP:</p>
+<link rel="stylesheet" href="https://github.githubassets.com/assets/gist-embed-d7f32d1731d95b9cb4d3c880c428c9e9.css">
+<div id="gist93814546" class="gist">
+<div class="gist-file">
+<div class="gist-data">
+<div class="js-gist-file-update-container js-task-list-container file-box">
+<div id="file-fb_bot_redirect-php" class="file">
+<div itemprop="text" class="blob-wrapper data type-php ">
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+<tbody><tr>
+<td id="file-fb_bot_redirect-php-L1" class="blob-num js-line-number" data-line-number="1"></td>
+<td id="file-fb_bot_redirect-php-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span></td>
+</tr>
+<tr>
+<td id="file-fb_bot_redirect-php-L2" class="blob-num js-line-number" data-line-number="2"></td>
+<td id="file-fb_bot_redirect-php-LC2" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"></span></td>
+</tr>
+<tr>
+<td id="file-fb_bot_redirect-php-L3" class="blob-num js-line-number" data-line-number="3"></td>
+<td id="file-fb_bot_redirect-php-LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"><span class="pl-smi">$user_agent</span> <span class="pl-k">=</span> <span class="pl-smi">$_SERVER</span>[<span class="pl-s"><span class="pl-pds">&#8220;</span>HTTP_USER_AGENT<span class="pl-pds">&#8220;</span></span>];</span></td>
+</tr>
+<tr>
+<td id="file-fb_bot_redirect-php-L4" class="blob-num js-line-number" data-line-number="4"></td>
+<td id="file-fb_bot_redirect-php-LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"></span></td>
+</tr>
+<tr>
+<td id="file-fb_bot_redirect-php-L5" class="blob-num js-line-number" data-line-number="5"></td>
+<td id="file-fb_bot_redirect-php-LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"><span class="pl-k">if</span> (<span class="pl-c1">strpos</span>(<span class="pl-smi">$user_agent</span>, <span class="pl-s"><span class="pl-pds">&#8220;</span>facebookexternalhit<span class="pl-pds">&#8220;</span></span>) <span class="pl-k">!</span><span class="pl-k">==</span> <span class="pl-c1">false</span>) {</span></td>
+</tr>
+<tr>
+<td id="file-fb_bot_redirect-php-L6" class="blob-num js-line-number" data-line-number="6"></td>
+<td id="file-fb_bot_redirect-php-LC6" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"> <span class="pl-c1">header</span>(<span class="pl-s"><span class="pl-pds">&#8220;</span>Location: <a class="vglnk" href="https://runescape.com" rel="nofollow"><span>https</span><span>://</span><span>runescape</span><span>.</span><span>com</span></a><span class="pl-pds">&#8220;</span></span>);</span></td>
+</tr>
+<tr>
+<td id="file-fb_bot_redirect-php-L7" class="blob-num js-line-number" data-line-number="7"></td>
+<td id="file-fb_bot_redirect-php-LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">} <span class="pl-k">else</span> {</span></td>
+</tr>
+<tr>
+<td id="file-fb_bot_redirect-php-L8" class="blob-num js-line-number" data-line-number="8"></td>
+<td id="file-fb_bot_redirect-php-LC8" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"> <span class="pl-c1">echo</span>(<span class="pl-s"><span class="pl-pds">&#8220;</span>poc.razb.me<span class="pl-pds">&#8220;</span></span>);</span></td>
+</tr>
+<tr>
+<td id="file-fb_bot_redirect-php-L9" class="blob-num js-line-number" data-line-number="9"></td>
+<td id="file-fb_bot_redirect-php-LC9" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">}</span></td>
+</tr>
+<tr>
+<td id="file-fb_bot_redirect-php-L10" class="blob-num js-line-number" data-line-number="10"></td>
+<td id="file-fb_bot_redirect-php-LC10" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"></span></td>
+</tr>
+<tr>
+<td id="file-fb_bot_redirect-php-L11" class="blob-num js-line-number" data-line-number="11"></td>
+<td id="file-fb_bot_redirect-php-LC11" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"></span><span class="pl-pse"><span class="pl-s1">?</span>&gt;</span></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</div>
+</div>
+<div class="gist-meta">
+<a href="https://gist.github.com/Raztor0/9573dcac3b76c446db9aa1a07760a0db/raw/26b6ce3e2ffe2f86c7ac2fd24eb6d3841c25fc82/fb_bot_redirect.php" style="float:right">view raw</a>
+<a href="https://gist.github.com/Raztor0/9573dcac3b76c446db9aa1a07760a0db#file-fb_bot_redirect-php">fb_bot_redirect.php</a>
+hosted with <img draggable="false" class="emoji" alt="❤" src="https://s.w.org/images/core/emoji/11/svg/2764.svg" scale="0"> by <a href="https://github.com">GitHub</a>
+</div>
+</div>
+</div>
+<p>In this example we simply set the &#8220;Location&#8221; header response to <a href="https://runescape.com">https://runescape.com</a>. This will tell Facebook&#8217;s bot to ignore whatever content it found at my URL poc.razb.me, and instead go looking at runescape.com. We can confirm that the bot is doing what we expect by using Facebook&#8217;s sharing debugger: <a href="https://developers.facebook.com/tools/debug/sharing/?q=https%3A%2F%2Fpoc.razb.me">https://developers.facebook.com/tools/debug/sharing/?q=https%3A%2F%2Fpoc.razb.me</a></p>
+<p>It turns out this is all it takes to spoof the Facebook URL preview bot. It is also possible to perform the same simple switch on iMessage, Twitter, and Reddit previews. Here are some examples:</p>
+<div class="wp-block-image"><figure class="alignleft"><img data-attachment-id="345" data-permalink="https://blog.razb.me/spoofing-url-previews/imessage_spoof/" data-orig-file="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/12/imessage_spoof.png?fit=618%2C456&amp;ssl=1" data-orig-size="618,456" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="imessage_spoof" data-image-description="" data-medium-file="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/12/imessage_spoof.png?fit=300%2C221&amp;ssl=1" data-large-file="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/12/imessage_spoof.png?fit=618%2C456&amp;ssl=1" src="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/12/imessage_spoof.png?w=750&#038;ssl=1" alt="" class="wp-image-345" srcset="https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/12/imessage_spoof.png?w=618&amp;ssl=1 618w, https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/12/imessage_spoof.png?resize=300%2C221&amp;ssl=1 300w" sizes="(max-width: 618px) 100vw, 618px" data-recalc-dims="1" /><figcaption>iMessage preview spoof<br></figcaption></figure></div>
+<figure class="wp-block-image"><img data-attachment-id="346" data-permalink="https://blog.razb.me/spoofing-url-previews/image/" data-orig-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2018/12/image.png?fit=936%2C166&amp;ssl=1" data-orig-size="936,166" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="image" data-image-description="" data-medium-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2018/12/image.png?fit=300%2C53&amp;ssl=1" data-large-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2018/12/image.png?fit=750%2C133&amp;ssl=1" src="https://i1.wp.com/blog.razb.me/wp-content/uploads/2018/12/image.png?w=750&#038;ssl=1" alt="" class="wp-image-346" srcset="https://i1.wp.com/blog.razb.me/wp-content/uploads/2018/12/image.png?w=936&amp;ssl=1 936w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2018/12/image.png?resize=300%2C53&amp;ssl=1 300w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2018/12/image.png?resize=768%2C136&amp;ssl=1 768w" sizes="(max-width: 750px) 100vw, 750px" data-recalc-dims="1" /><figcaption>Reddit preview spoof</figcaption></figure>
+<figure class="wp-block-image"><img data-attachment-id="463" data-permalink="https://blog.razb.me/spoofing-url-previews/spoof_tweet/" data-orig-file="https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?fit=1284%2C788&amp;ssl=1" data-orig-size="1284,788" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="spoof_tweet" data-image-description="" data-medium-file="https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?fit=300%2C184&amp;ssl=1" data-large-file="https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?fit=750%2C460&amp;ssl=1" src="https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?fit=750%2C460&amp;ssl=1" alt="" class="wp-image-463" srcset="https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?w=1284&amp;ssl=1 1284w, https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?resize=300%2C184&amp;ssl=1 300w, https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?resize=768%2C471&amp;ssl=1 768w, https://i0.wp.com/blog.razb.me/wp-content/uploads/2019/01/spoof_tweet.png?resize=1024%2C628&amp;ssl=1 1024w" sizes="(max-width: 750px) 100vw, 750px" /><figcaption>Twitter preview spoof<br><a href="https://twitter.com/test_raz/status/1079640248743837696">https://twitter.com/test_raz/status/1079640248743837696</a></figcaption></figure>
+<p>It&#8217;s important to note that both iMessage and Reddit actually preserve the original URL when generating the preview. This is a very good practise as it makes this sort of attack much less effective when the user can still see the original URL.</p>
+<p>However, in the case of Facebook and Twitter they use the redirected URL in the preview and omit the original URL entirely. This makes it possible to trick somebody into thinking that they are about to go to one domain when in fact they will be taken to another.</p>
+<hr class="wp-block-separator" />
+<h4>Responsible Disclosure</h4>
+<p>Prior to posting this blog post, I reached out to Facebook and Twitter (via their respective bug bounty programs <a href="https://www.facebook.com/whitehat">here</a> and <a href="https://hackerone.com/twitter">here</a>) and made sure that they are aware of the trick that I outlined in this post. They both got back to me and said that it is too low risk and they have no plans on changing the current behaviour.</p>
+<p>So for the time being, pay extra close attention when clicking on content on Facebook and Twitter, and make sure the domain you end up at is the one you expected.</p>
+<div id='jp-relatedposts' class='jp-relatedposts'>
+<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div> </article>
+<div class="section section-blog-info">
+<div class="row">
+<div class="col-md-6">
+<div class="entry-categories">Categories: <span class="label label-primary"><a href="../category/social-media/index.html">Social Media</a></span> </div>
+<div class="entry-tags">Tags: <span class="entry-tag"><a href="../tag/facebook/index.html" rel="tag">facebook</a></span><span class="entry-tag"><a href="../tag/imessage/index.html" rel="tag">imessage</a></span><span class="entry-tag"><a href="../tag/phishing/index.html" rel="tag">phishing</a></span><span class="entry-tag"><a href="../tag/reddit/index.html" rel="tag">reddit</a></span><span class="entry-tag"><a href="../tag/social-media/index.html" rel="tag">social media</a></span><span class="entry-tag"><a href="../tag/spoofing/index.html" rel="tag">spoofing</a></span><span class="entry-tag"><a href="../tag/twitter/index.html" rel="tag">twitter</a></span></div> </div>
+<div class="col-md-6">
+<div class="entry-social">
+<a target="_blank" rel="tooltip" data-original-title="Share on Facebook" class="btn btn-just-icon btn-round btn-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.razb.me/spoofing-url-previews/"><i class="fa fa-facebook"></i></a>
+<a target="_blank" rel="tooltip" data-original-title="Share on Twitter" class="btn btn-just-icon btn-round btn-twitter" href="https://twitter.com/home?status=Spoofing URL previews - https://blog.razb.me/spoofing-url-previews/"><i class="fa fa-twitter"></i></a>
+<a target="_blank" rel="tooltip" data-original-title=" Share on Google+" class="btn btn-just-icon btn-round btn-google" href="https://plus.google.com/share?url=https://blog.razb.me/spoofing-url-previews/"><i class="fa fa-google"></i></a>
+</div></div> </div>
+<hr>
+<div class="card card-profile card-plain">
+<div class="row">
+<div class="col-md-2">
+<div class="card-avatar">
+<a href="../author/raz/index.html" title="Raz"><img alt='' src='https://secure.gravatar.com/avatar/aae6720c35ab12fac13db06788b2e7fb?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/aae6720c35ab12fac13db06788b2e7fb?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' /></a>
+</div>
+</div>
+<div class="col-md-10">
+<h4 class="card-title">Raz</h4>
+<p class="description">I'm 25 years old and I do stuff with computers.</p>
+</div>
+</div>
+</div>
+<div id="disqus_thread"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer-wrapper">
+<footer class="footer footer-black footer-big">
+<div class="container">
+</div>
+</footer>
+<div style="display: none">
+</div>
+</div>
+</div>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-content/plugins/jetpack/_inc/build/photon/photon.min.js%3Fver=20130122'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript">
+/* <![CDATA[ */
+var countVars = {"disqusShortname":"razvanbangu"};
+/* ]]> */
+</script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-content/plugins/disqus-comment-system/public/js/comment_count.js%3Fver=3.0.16'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript">
+/* <![CDATA[ */
+var embedVars = {"disqusConfig":{"integration":"wordpress 3.0.16"},"disqusIdentifier":"333 https:\/\/blog.razb.me\/?p=333","disqusShortname":"razvanbangu","disqusTitle":"Spoofing URL previews","disqusUrl":"https:\/\/blog.razb.me\/spoofing-url-previews\/","postId":"333"};
+/* ]]> */
+</script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-content/plugins/disqus-comment-system/public/js/comment_embed.js%3Fver=3.0.16'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201910'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-includes/js/comment-reply.min.js%3Fver=5.0.3'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-content/themes/hestia/assets/bootstrap/js/bootstrap.min.js%3Fver=1.0.1'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-content/themes/hestia/assets/js/material.js%3Fver=1.0.1'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-includes/js/jquery/ui/core.min.js%3Fver=1.11.4'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript">
+/* <![CDATA[ */
+var requestpost = {"ajaxurl":"https:\/\/blog.razb.me\/wp-admin\/admin-ajax.php"};
+var hestiaViewcart = {"view_cart_label":"View cart","view_cart_link":""};
+/* ]]> */
+</script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-content/themes/hestia/assets/js/scripts.js%3Fver=1.1.71'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-includes/js/wp-embed.min.js%3Fver=5.0.3'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-content/plugins/jetpack/_inc/build/spin.min.js%3Fver=1.3'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-content/plugins/jetpack/_inc/build/jquery.spin.min.js%3Fver=1.3'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript">
+/* <![CDATA[ */
+var jetpackCarouselStrings = {"widths":[370,700,1000,1200,1400,2000],"is_logged_in":"","lang":"en","ajaxurl":"https:\/\/blog.razb.me\/wp-admin\/admin-ajax.php","nonce":"13ce74276d","display_exif":"1","display_geo":"1","single_image_gallery":"1","single_image_gallery_media_file":"","background_color":"black","comment":"Comment","post_comment":"Post Comment","write_comment":"Write a Comment...","loading_comments":"Loading Comments...","download_original":"View full size <span class=\"photo-size\">{0}<span class=\"photo-size-times\">\u00d7<\/span>{1}<\/span>","no_comment_text":"Please be sure to submit some text with your comment.","no_comment_email":"Please provide an email address to comment.","no_comment_author":"Please provide your name to comment.","comment_post_error":"Sorry, but there was an error posting your comment. Please try again later.","comment_approved":"Your comment was approved.","comment_unapproved":"Your comment is in moderation.","camera":"Camera","aperture":"Aperture","shutter_speed":"Shutter Speed","focal_length":"Focal Length","copyright":"Copyright","comment_registration":"0","require_name_email":"1","login_url":"https:\/\/blog.razb.me\/wp-login.php?redirect_to=https%3A%2F%2Fblog.razb.me%2Fspoofing-url-previews%2F","blog_id":"1","meta_data":["camera","aperture","shutter_speed","focal_length","copyright"],"local_comments_commenting_as":"<fieldset><label for=\"email\">Email (Required)<\/label> <input type=\"text\" name=\"email\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-email-field\" \/><\/fieldset><fieldset><label for=\"author\">Name (Required)<\/label> <input type=\"text\" name=\"author\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-author-field\" \/><\/fieldset><fieldset><label for=\"url\">Website<\/label> <input type=\"text\" name=\"url\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-url-field\" \/><\/fieldset>"};
+/* ]]> */
+</script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='../wp-content/plugins/jetpack/_inc/build/carousel/jetpack-carousel.min.js%3Fver=20170209'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript">
+			function showhide_toggle(type, post_id, more_text, less_text) {
+				var   $link = jQuery("#"+ type + "-link-" + post_id)
+					, $link_a = jQuery('a', $link)
+					, $content = jQuery("#"+ type + "-content-" + post_id)
+					, $toggle = jQuery("#"+ type + "-toggle-" + post_id)
+					, show_hide_class = 'sh-show sh-hide';
+				$link.toggleClass(show_hide_class);
+				$content.toggleClass(show_hide_class).toggle();
+				if($link_a.attr('aria-expanded') === 'true') {
+					$link_a.attr('aria-expanded', 'false');
+				} else {
+					$link_a.attr('aria-expanded', 'true');
+				}
+				if($toggle.text() === more_text) {
+					$toggle.text(less_text);
+					$link.trigger( "sh-link:more" );
+				} else {
+					$toggle.text(more_text);
+					$link.trigger( "sh-link:less" );
+				}
+				$link.trigger( "sh-link:toggle" );
+			}
+		</script>
+<div style="display:none">
+<div class="grofile-hash-map-aae6720c35ab12fac13db06788b2e7fb">
+</div>
+</div>
+<script type="750f4ed5873f1888a049f3c0-text/javascript" src='https://stats.wp.com/e-201910.js' async='async' defer='defer'></script>
+<script type="750f4ed5873f1888a049f3c0-text/javascript">
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:6.8.1',blog:'108306310',post:'333',tz:'-5',srv:'blog.razb.me'} ]);
+	_stq.push([ 'clickTrackerInit', '108306310', '333' ]);
+</script>
+<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/a2bd7673/cloudflare-static/rocket-loader.min.js" data-cf-settings="750f4ed5873f1888a049f3c0-|49" defer=""></script></body>
+</html>

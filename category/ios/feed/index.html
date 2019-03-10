@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+>
+
+<channel>
+	<title>iOS &#8211; Raz</title>
+	<atom:link href="https://blog.razb.me/category/ios/feed/" rel="self" type="application/rss+xml" />
+	<link>https://blog.razb.me</link>
+	<description>Computer stuff</description>
+	<lastBuildDate>Sun, 13 Jan 2019 01:25:31 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.0.3</generator>
+
+<image>
+	<url>https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/04/cropped-Untitled.png?fit=32%2C32&#038;ssl=1</url>
+	<title>iOS &#8211; Raz</title>
+	<link>https://blog.razb.me</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">108306310</site>	<item>
+		<title>Pulling apart an iOS App</title>
+		<link>https://blog.razb.me/pulling-apart-an-ios-app/</link>
+		<comments>https://blog.razb.me/pulling-apart-an-ios-app/#respond</comments>
+		<pubDate>Fri, 29 Dec 2017 20:38:13 +0000</pubDate>
+		<dc:creator><![CDATA[Raz]]></dc:creator>
+				<category><![CDATA[iOS]]></category>
+		<category><![CDATA[Objective-C]]></category>
+		<category><![CDATA[Swift]]></category>
+
+		<guid isPermaLink="false">https://blog.razb.me/?p=160</guid>
+		<description><![CDATA[The App Store Since its initial release on July 10, 2008, the iOS App Store has amassed over 2.2 million apps. Combine that with a study by Nielsen in 2015 which shows that the average smartphone user interacts with 10 apps a day, and 30 apps a month for a<a class="moretag" href="https://blog.razb.me/pulling-apart-an-ios-app/"> Read more&#8230;</a>]]></description>
+				<content:encoded><![CDATA[<h1>The App Store</h1>
+<p>Since its initial release on July 10, 2008, the iOS App Store has amassed <a href="https://en.wikipedia.org/wiki/App_Store_(iOS)#Number_of_iOS_applications">over 2.2 million apps</a>. Combine that with <a href="http://www.nielsen.com/us/en/insights/news/2015/so-many-apps-so-much-more-time-for-entertainment.html">a study by Nielsen in 2015</a> which shows that the average smartphone user interacts with 10 apps a day, and 30 apps a month for a total of over 35 hours spent using apps every month, it&#8217;s safe to say that we love our apps.</p>
+<p>The way we interact with all of these apps is generally the same: download it from the App Store, find the app&#8217;s icon on your home screen, tap it and it magically opens. On the surface, there doesn&#8217;t seem much to an app. They all just sit there patiently on your home screen, icons waiting for you to tap on them and bring them to life. But have you ever wondered what actually goes on under the hood? How these apps work, and what they&#8217;re made of? Let&#8217;s take a look.</p>
+<blockquote><p><strong>Note:</strong>&nbsp;throughout this post we will be looking at specific examples from an app which I wrote: <a href="https://itunes.apple.com/us/app/rs-xchange/id1018629772">RS Xchange</a>.</p></blockquote>
+<h1>The IPA file</h1>
+<p>After finding a new app which you&#8217;d like to try out on the App Store, you press the download button and wait a little while for stuff to happen. During this time, iOS is downloading the app in the form of a file with an extension of &#8220;.ipa&#8221;. So what exactly is this &#8220;.ipa&#8221; file?</p>
+<p>&#8220;.ipa&#8221; files are actually just &#8220;.zip&#8221; files. Renaming .ipa to .zip will allow you to extract the contents of the .ipa file in much the same way you extract .zip files. After extraction, you will find a folder with the following structure:</p>
+<ul>
+<li>iTunesArtwork</li>
+<li>iTunesMetadata.plist</li>
+<li>Payload/</li>
+<li>META-INF/</li>
+</ul>
+<p>Let&#8217;s run through this from top to bottom.</p>
+<h2>iTunesArtwork</h2>
+<p>This file is actually a .png file. Adding the &#8220;.png&#8221; extension to it will allow you to open the file with your image viewing tool of choice. Upon opening the file, you will see that this is just the app&#8217;s icon as it is shown on the App Store. This image will have a size of 1024&#215;1024. Here is an example of an&nbsp;<em>iTunesArtwork</em> file:</p>
+<div id="attachment_280" style="width: 159px" class="wp-caption aligncenter"><img data-attachment-id="280" data-permalink="https://blog.razb.me/pulling-apart-an-ios-app/itunesartwork/" data-orig-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?fit=1024%2C1024&amp;ssl=1" data-orig-size="1024,1024" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="iTunesArtwork" data-image-description="&lt;p&gt;iTunesArtwork&lt;/p&gt;
+" data-medium-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?fit=300%2C300&amp;ssl=1" data-large-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?fit=750%2C750&amp;ssl=1" src="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?resize=149%2C149&#038;ssl=1" alt="iTunesArtwork" width="149" height="149" class=" wp-image-280" srcset="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?w=1024&amp;ssl=1 1024w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?resize=150%2C150&amp;ssl=1 150w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?resize=300%2C300&amp;ssl=1 300w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?resize=768%2C768&amp;ssl=1 768w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/iTunesArtwork.png?resize=50%2C50&amp;ssl=1 50w" sizes="(max-width: 149px) 100vw, 149px" data-recalc-dims="1" /><p class="wp-caption-text">iTunesArtwork for the RS Xchange app</p></div>
+<h2>iTunesMetadata.plist</h2>
+<p>This file contains lots of information about the app, its developer, when it was downloaded, and which account it was downloaded by. This is what a sample iTunesMetadata.plist file might look like:</p>
+<p><script src="https://gist.github.com/Raztor0/815ad9ad23bcf524bdc88357d5e9a5a4.js"></script></p>
+<h2>Payload/</h2>
+<p>The <em>Payload/</em> folder contains the actual app binary along with all of its resources that it needs to function. Once inside the&nbsp;<em>Payoad/</em> folder, there will be a single file with the &#8220;.app&#8221; extension. This file is actually just another folder, and you can open it like any other folder. On MacOS, right click it and press &#8220;Show Package Contents&#8221;.</p>
+<p>The contents of this folder will differ from app to app. This is the stuff that defines each individual app. Here is an example of some of the things you might find:</p>
+<ul>
+<li>AppIcon29x29.png</li>
+<li>AppIcon29x29@2x.png</li>
+<li>AppIcon29x29@2x~ipad.png</li>
+<li>AppIcon29x29@3x.png</li>
+<li>AppIcon29x29~ipad.png</li>
+<li>AppIcon40x40@2x.png</li>
+<li>AppIcon40x40@2x~ipad.png</li>
+<li>AppIcon40x40@3x.png</li>
+<li>AppIcon40x40~ipad.png</li>
+<li>AppIcon50x50@2x~ipad.png</li>
+<li>AppIcon50x50~ipad.png</li>
+<li>AppIcon57x57.png</li>
+<li>AppIcon57x57@2x.png</li>
+<li>AppIcon60x60@2x.png</li>
+<li>AppIcon60x60@3x.png</li>
+<li>AppIcon72x72@2x~ipad.png</li>
+<li>AppIcon72x72~ipad.png</li>
+<li>AppIcon76x76@2x~ipad.png</li>
+<li>AppIcon76x76~ipad.png</li>
+<li>Assets.car</li>
+<li>Base.lproj/</li>
+<li>Frameworks/</li>
+<li>Info.plist</li>
+<li>ItemDetailsStoryboard.storyboardc/</li>
+<li>LaunchScreen.storyboardc/</li>
+<li>OSRSItemDetailsDescriptionTableViewCell.nib</li>
+<li>OSRSItemDetailsHeaderView.nib</li>
+<li>OSRSItemDetailsWikiaTableViewCell.nib</li>
+<li>OSRSItemSearchTableViewCell.nib</li>
+<li>PkgInfo</li>
+<li>RS Xchange</li>
+<li>SC_Info/</li>
+<li>TSMessagesDefaultDesign.json</li>
+<li>_CodeSignature/</li>
+<li>archived-expanded-entitlements.xcent</li>
+</ul>
+<p>Let&#8217;s run through them top to bottom.</p>
+<h3>AppIcon.png</h3>
+<p>First, you will notice a bunch of images named something like &#8220;AppIcon&lt;something&gt;.png&#8221;. These images correspond to, as you might have guessed, the app&#8217;s icon as you see it on your home screen. There are lots of various sizes of this icon, each one optimized for a different device and different place that it might be shown. For example, iPads have different app icon dimension requirements than iPhones, and the app icon as it is shown in a notification has a different dimension requirement than the app icon which is shown on the home screen.</p>
+<h3>Assets.car</h3>
+<p>This file contains some (or all) of the images which the app might use to display once you open it. The images are stored in an optimized format, and you need special tools to take them out and look at them one by one. One such tool which can do this is called the <a href="https://github.com/insidegui/AssetCatalogTinkerer">Asset Catalog Tinkerer</a>. Upon exporting, you will get a list of image files which you can open with your image viewing tool of choice. Here is an example of some of the images which you might find inside of the&nbsp;<em>Assets.car</em> file:</p>
+ [<a href="https://blog.razb.me/pulling-apart-an-ios-app/">See image gallery at blog.razb.me</a>] 
+<h3></h3>
+<h3>Base.lproj/</h3>
+<p>This folder has to do with localization. If an app supports multiple languages, each resource which needs to be translated (strings, images, storyboards, xibs) will go into its own folder which ends in &#8220;.lproj&#8221;. For example, if your app was localized to english and french, you will have three &#8220;.lproj&#8221; folders: en.lproj, fr.lproj, and Base.lproj. The en.lproj and fr.lproj folders will contain resources which have been converted to their respective languages, and Base.lproj contains the default resources to use in the case when a user&#8217;s phone is using a language which is not supported by the app. In most cases, Base.lproj just contains the english version of the app&#8217;s resources.</p>
+<h3>Frameworks/</h3>
+<p>This folder contains all of the dynamic frameworks and libraries which the app relies on. This is just some code which was written outside of the main app, and which is used by the main app. Here is an example of some of the files which might be found in this folder:</p>
+<ul>
+<li>AFNetworking.framework/</li>
+<li>Blindside.framework/</li>
+<li>BlindsidedStoryboard.framework/</li>
+<li>ChameleonFramework.framework/</li>
+<li>Charts.framework/</li>
+<li>DZNEmptyDataSet.framework/</li>
+<li>FontAwesome_iOS.framework/</li>
+<li>Harpy.framework/</li>
+<li>HexColors.framework/</li>
+<li>KSDeferred.framework/</li>
+<li>MaryPopin.framework/</li>
+<li>NXTSegmentedControl.framework/</li>
+<li>PPiAwesomeButton.framework/</li>
+<li>PPiFlatSegmentedControl.framework/</li>
+<li>SCLAlertView_Objective_C.framework/</li>
+<li>SDWebImage.framework/</li>
+<li>TSMessages.framework/</li>
+<li>iRate.framework/</li>
+<li>libswiftContacts.dylib</li>
+<li>libswiftCore.dylib</li>
+<li>libswiftCoreGraphics.dylib</li>
+<li>libswiftCoreImage.dylib</li>
+<li>libswiftDarwin.dylib</li>
+<li>libswiftDispatch.dylib</li>
+<li>libswiftFoundation.dylib</li>
+<li>libswiftObjectiveC.dylib</li>
+<li>libswiftUIKit.dylib</li>
+</ul>
+<p>Amongst these, you&#8217;ll notice that some apps contain files which start with &#8220;libswift&#8221;, and have the extension &#8220;.dylib&#8221;. These files make up the Swift runtime, and they are necessary to be included in every app which contains <a href="https://developer.apple.com/swift/">Swift</a> code.</p>
+<h3>Info.plist</h3>
+<p>This file contains generic information about the app itself. Things ranging from the app&#8217;s name, to the AppIcon files we talked about above, to the permissions which the app might ask for (photos, camera, contacts, etc), and even some internal information such as the unique identifier for the app (called the bundle identifier). Here is a sample <em>Info.plist</em> file:</p>
+<p><script src="https://gist.github.com/Raztor0/6b2615434ef3e4c86341ad0eb5017f27.js"></script></p>
+<p>A lot of interesting information can be found in the&nbsp;<em>Info.plist</em> file. An official summary of everything this file might contain can be found <a href="https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Introduction/Introduction.html">here</a>&nbsp;and <a href="https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/iPhoneOSKeys.html#//apple_ref/doc/uid/TP40009252-SW1">here</a>.</p>
+<h2>&lt;something&gt;.storyboardc/</h2>
+<p>Folders which end in&nbsp;<em>.storyboardc</em> contain some information related to the layout of particular screens or views within the app. The presence of these folders indicate that the app was developed using the <a href="https://developer.apple.com/xcode/interface-builder/">Interface Builder tool</a>. Within these folders, you will find several <em>.nib</em> files along with another&nbsp;<em>Info.plist</em> file:</p>
+<ul>
+<li>Info.plist</li>
+<li>UIViewController-x1L-Z2-jkR.nib</li>
+<li>x1L-Z2-jkR-view-7LY-9B-3EQ.nib</li>
+</ul>
+<p>The <em>Info.plist</em> file included here is in binary format, and you need to convert it to XML format before being able to read it like normal&nbsp;<em>.plist</em> files. Run this command to convert it to XML:</p><pre class="crayon-plain-tag">plutil -convert xml1 Info.plist</pre><p>Here is what an example <em>Info.plist</em> file could look like inside of a <em>.storyboardc</em> file:</p>
+<p><script src="https://gist.github.com/Raztor0/9c1329ac54e2551df0808f1019275691.js"></script></p>
+<p>The keys/values within these&nbsp;<em>Info.plist</em> files describe some information relating to the&nbsp;<em>.nib</em> files found alongside them. In this case, the&nbsp;<em>UIStoryboardDesignatedEntryPointIdentifier</em> key is indicating that the view controller with the identifier&nbsp;<em>UIViewController-x1L-Z2-jkR</em> is to be used as the &#8220;entry point&#8221; for the application, or the first screen to be displayed when the app is opened. The&nbsp;<em>UIViewControllerIdentifiersToNibNames</em> key is mapping identifiers in the compiled&nbsp;<em>.nib</em> files to other&nbsp;<em>.nib&nbsp;</em>files.</p>
+<h2>&lt;something&gt;.nib</h2>
+<p><em>.nib</em> files are the result of compiling&nbsp;<em>.xib</em> files using the <a href="https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/ibtool.1.html">ibtool</a> utility.&nbsp;<em>.xib</em> files are XML files which define the user interface for a specific element within the app. Everything from individual buttons to entire screens can be defined in <em>.xib</em> files. Here is a sample&nbsp;<em>.xib</em> file:</p>
+<p><script src="https://gist.github.com/Raztor0/67a944fc3ede0ce66df9fb306d2e98bb.js"></script></p>
+<p>And the corresponding user interface it produces:</p>
+<div id="attachment_272" style="width: 409px" class="wp-caption alignnone"><img data-attachment-id="272" data-permalink="https://blog.razb.me/pulling-apart-an-ios-app/screen-shot-2017-12-29-at-7-46-25-pm/" data-orig-file="https://i2.wp.com/blog.razb.me/wp-content/uploads/2017/12/Screen-Shot-2017-12-29-at-7.46.25-PM.png?fit=724%2C198&amp;ssl=1" data-orig-size="724,198" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title=".xib user interface" data-image-description="&lt;p&gt;.xib user interface&lt;/p&gt;
+" data-medium-file="https://i2.wp.com/blog.razb.me/wp-content/uploads/2017/12/Screen-Shot-2017-12-29-at-7.46.25-PM.png?fit=300%2C82&amp;ssl=1" data-large-file="https://i2.wp.com/blog.razb.me/wp-content/uploads/2017/12/Screen-Shot-2017-12-29-at-7.46.25-PM.png?fit=724%2C198&amp;ssl=1" src="https://i2.wp.com/blog.razb.me/wp-content/uploads/2017/12/Screen-Shot-2017-12-29-at-7.46.25-PM.png?resize=399%2C109&#038;ssl=1" alt=".xib user interface" width="399" height="109" class=" wp-image-272" srcset="https://i2.wp.com/blog.razb.me/wp-content/uploads/2017/12/Screen-Shot-2017-12-29-at-7.46.25-PM.png?w=724&amp;ssl=1 724w, https://i2.wp.com/blog.razb.me/wp-content/uploads/2017/12/Screen-Shot-2017-12-29-at-7.46.25-PM.png?resize=300%2C82&amp;ssl=1 300w" sizes="(max-width: 399px) 100vw, 399px" data-recalc-dims="1" /><p class="wp-caption-text">.xib user interface</p></div>
+<p>It&#8217;s important to note that while developing, the XML of a&nbsp;<em>.xib</em> file is never modified directly by a person. The resulting XML is generated through the Interface Builder tool.</p>
+<h2>PkgInfo</h2>
+<p>This is an auto-generated file which contains&nbsp;<span>the 4-byte package type followed by the 4-byte signature of your application. For iOS apps, the package type will be &#8220;<em>APPL</em>&#8220;, and the signature will be <em>0x3f3f3f3f</em>.<br />
+More information about this file can be found <a href="https://developer.apple.com/library/content/documentation/MacOSX/Conceptual/BPRuntimeConfig/Articles/ConfigApplications.html">here</a>.</span></p>
+<h2>RS Xchange</h2>
+<p>This file name will be different from app to app, and the name corresponds to the value for the&nbsp;<em>CFBundleExecutable</em> in the <em>Info.plist</em> file. This is the app&#8217;s main executable. It contains all of the code necessary to make the app run. This is the file that gets executed when you tap on the app&#8217;s icon on your home screen.</p>
+<p>When you download an&nbsp;<em>.ipa</em> file from the App Store, this executable is encrypted, so you can&#8217;t take a closer look at what&#8217;s inside of it. Fortunately there is a way to get the decrypted version, but we&#8217;ll cover that in a future blog post.</p>
+<h2>SC_Info/</h2>
+<p>This folder contains keys which are used for decrypting the app executables. The contents will look like this:</p>
+<ul>
+<li>Manifest.plist</li>
+<li>RS Xchange.sinf</li>
+<li>RS Xchange.supf</li>
+<li>RS Xchange.supp</li>
+<li>RS Xchange.supx</li>
+</ul>
+<p>The&nbsp;<em>.sinf, .supf, .supp, .supx</em> files are used for decrypting, and the&nbsp;<em>Manifest.plist</em> file is used to list all of the relevant&nbsp;<em>.sinf</em> files which are to be used. Here is a sample&nbsp;<em>Manifest.plist</em> file:</p>
+<p><script src="https://gist.github.com/Raztor0/8ce840b0841b8639ff453eb1f4435865.js"></script></p>
+<h2>TSMessagesDefaultDesign.json</h2>
+<p>This file is specific to the RS Xchange app which we have been inspecting throughout this post. It is just one of the additional resources which are included with the app. Apps can have all sorts of arbitrary resources which they require to function, and you will find them all in the root of the&nbsp;<em>.app</em> folder.</p>
+<h2>_CodeSignature/</h2>
+<p>This folder contains information related to <a href="https://en.wikipedia.org/wiki/Code_signing">code signing</a>. When a developer decides to distribute an app via the App Store, code signing is performed on the executable and all of the other resources included within the app. The purpose of this process is to ensure that the app can not be modified by any malicious third party after the developer has chosen to distribute a version of their app.</p>
+<p>There is a single file within this folder called&nbsp;<em>CodeResources</em>. Taking a closer look at this file, it is actually a&nbsp;<em>.plist</em>, and can be opened the same way as any other&nbsp;<em>.plist</em> file. You can find a sample&nbsp;<em>CodeResources</em> file <a href="https://gist.github.com/Raztor0/cbb627ebb650a40dd59f88ae095bd4ef#file-coderesources">here</a>. (I would include it directly here, but it&#8217;s 3000+ lines long)</p>
+<p>Each file which is eligible for code signing is included in this file, along with the corresponding hash data which should result from the process of signing each file.</p>
+<p>If any of these files are modified after the developer has signed it, the hashes of the files will differ and the app will be unable to be run on a device.</p>
+<p>More information about code signing can be found <a href="https://developer.apple.com/library/content/documentation/Security/Conceptual/CodeSigningGuide/AboutCS/AboutCS.html">here</a> and <a href="https://developer.apple.com/support/code-signing/">here</a>.</p>
+<h2>archived-expanded-entitlements.xcent</h2>
+<p>This file is once again just a&nbsp;<em>.plist</em> file in disguise. It contains all of the entitlements which the app has requested, such as push notifications and access to iCloud storage. Here is a sample&nbsp;archived-expanded-entitlements.xcent file:</p>
+<p><script src="https://gist.github.com/Raztor0/1224bd416936ea4316e4a2708b48a1f1.js"></script></p>
+<p>In this example, the only entitlement the app is requesting is for&nbsp;keychain-access-groups. You can find a complete list of the entitlements which an app may request <a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/AddingCapabilities/AddingCapabilities.html">here</a>.</p>
+<h2>META-INF/</h2>
+<p>This folder contains some general metadata about the .ipa file. Under the META-INF/ folder, you will find two more files:</p>
+<ul>
+<li>com.apple.FixedZipMetadata.bin</li>
+<li>com.apple.ZipMetadata.plist</li>
+</ul>
+<p>You typically don&#8217;t need to worry about this folder, and there isn&#8217;t much documentation to go with it, but let&#8217;s run through the two files found here anyway.</p>
+<h3>com.apple.ZipMetadata.plist</h3>
+<p>The&nbsp;<em>com.apple.ZipMetadata.plist</em> file contains some information about how the .ipa file was created, along with its uncompressed size. This is what a sample&nbsp;<em>com.apple.ZipMetadata.plist</em> file might look like:</p>
+<p><script src="https://gist.github.com/Raztor0/d51544fdd45ceee5dc592afc8e01bbba.js"></script></p>
+<p>Note that this .plist file is typically found in binary format, and you will need to do some work to convert it to XML format to get the output above. Converting a binary plist to an XML plist can be done with the following command:</p><pre class="crayon-plain-tag">plutil -convert xml1 com.apple.ZipMetadata.plist</pre><p></p>
+<h3>com.apple.FixedZipMetadata.bin</h3>
+<p>The next file,&nbsp;<em>com.apple.FixedZipMetadata.bin</em>, is binary file of some sort. There isn&#8217;t much documentation about what this is or how to read it, but doing a hexdump on it yields the following:</p><pre class="crayon-plain-tag">00000000  4d 64 46 78 01 10 00 00  00 00 00 00 00 00 00 00  |MdFx............|
+00000010  00 00 00 00 00 00 00                              |.......|
+00000017</pre><p></p>
+<h1>That&#8217;s all folks</h1>
+<p>We&#8217;ve officially gone through everything that is found within a typical App Store app file which you download and install on to your device. All of these components work together to provide you with all of the functionality you know and love, like <a href="https://itunes.apple.com/ca/app/candy-crush-saga/id553834731">lining up candy</a>, browsing&nbsp;<a href="https://itunes.apple.com/ca/app/reddit-official-trending-news/id1064216828">memes</a>, and of course, <a href="https://itunes.apple.com/us/app/color-by-number-coloring-book/id1317978215">colouring pictures of cats</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://blog.razb.me/pulling-apart-an-ios-app/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+	<post-id xmlns="com-wordpress:feed-additions:1">160</post-id>	</item>
+		<item>
+		<title>Taylor Swift&#8217;s new app &#8220;The Swift Life™&#8221; was not written in Swift</title>
+		<link>https://blog.razb.me/taylor-swifts-new-app-the-swift-life-was-not-written-in-swift/</link>
+		<comments>https://blog.razb.me/taylor-swifts-new-app-the-swift-life-was-not-written-in-swift/#respond</comments>
+		<pubDate>Wed, 27 Dec 2017 09:15:00 +0000</pubDate>
+		<dc:creator><![CDATA[Raz]]></dc:creator>
+				<category><![CDATA[iOS]]></category>
+		<category><![CDATA[Swift]]></category>
+
+		<guid isPermaLink="false">https://blog.razb.me/?p=135</guid>
+		<description><![CDATA[Late December 2017, Taylor Swift&#8217;s new iOS app called&#160;&#8220;The Swift Life™&#8221; hit the app store. The app is geared towards social media, allowing you to post content and interact with other people&#8217;s content in much the same way as Facebook, Instagram, and all the typical social media platforms we&#8217;re all<a class="moretag" href="https://blog.razb.me/taylor-swifts-new-app-the-swift-life-was-not-written-in-swift/"> Read more&#8230;</a>]]></description>
+				<content:encoded><![CDATA[<p>Late December 2017, <a href="https://itunes.apple.com/nz/app/the-swift-life/id1205727849">Taylor Swift&#8217;s new iOS app</a> called&nbsp;&#8220;<span><strong>The Swift Life<img src="https://s.w.org/images/core/emoji/11/72x72/2122.png" alt="™" class="wp-smiley" style="height: 1em; max-height: 1em;" /></strong>&#8221; <a href="https://techcrunch.com/2017/12/14/taylor-swifts-new-app-the-swift-life-is-out-now/">hit the app store</a>.</span></p>
+<p>The app is geared towards social media, allowing you to post content and interact with other people&#8217;s content in much the same way as Facebook, Instagram, and all the typical social media platforms we&#8217;re all familiar with. However, the one thing that seems to set her app apart is the fact that when a post by a fan gets popular enough, there&#8217;s a chance that Taylor Swift herself will see it, and even possibly reply. Cool stuff.</p>
+<p>Aside from that, the app is jam-packed with Taylor Swift-ness; from exclusive pictures and videos posted by the Swift goddess herself, to animated Taylor-themed emoji (which they&#8217;ve creatively dubbed Taymoji<span><img src="https://s.w.org/images/core/emoji/11/72x72/2122.png" alt="™" class="wp-smiley" style="height: 1em; max-height: 1em;" />), to&nbsp;</span>having Taylor&#8217;s songs with lyrics constantly playing at the top of the app. Even the error messages make use of lyrics from Taylor&#8217;s songs.</p>
+<div id="attachment_136" style="width: 200px" class="wp-caption alignright"><img data-attachment-id="136" data-permalink="https://blog.razb.me/taylor-swifts-new-app-the-swift-life-was-not-written-in-swift/img_0803/" data-orig-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/IMG_0803.png?fit=1125%2C2436&amp;ssl=1" data-orig-size="1125,2436" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="IMG_0803" data-image-description="&lt;p&gt;Error message using song lyrics&lt;/p&gt;
+" data-medium-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/IMG_0803.png?fit=139%2C300&amp;ssl=1" data-large-file="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/IMG_0803.png?fit=473%2C1024&amp;ssl=1" src="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/IMG_0803.png?resize=190%2C412&#038;ssl=1" alt="Error message using song lyrics" width="190" height="412" class=" wp-image-136" srcset="https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/IMG_0803.png?w=1125&amp;ssl=1 1125w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/IMG_0803.png?resize=139%2C300&amp;ssl=1 139w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/IMG_0803.png?resize=768%2C1663&amp;ssl=1 768w, https://i1.wp.com/blog.razb.me/wp-content/uploads/2017/12/IMG_0803.png?resize=473%2C1024&amp;ssl=1 473w" sizes="(max-width: 190px) 100vw, 190px" data-recalc-dims="1" /><p class="wp-caption-text">&#8220;Blank Space&#8221; error message</p></div>
+<p>Now the question is, with all of this Swiftiness packed into one app, surely it must also be written in <a href="https://swift.org/about/">Swift</a>, right? Wrong.</p>
+<p>Taylor Swift&#8217;s &#8220;The Swift Life<img src="https://s.w.org/images/core/emoji/11/72x72/2122.png" alt="™" class="wp-smiley" style="height: 1em; max-height: 1em;" />&#8221; is, ironically, not written in Swift.</p>
+<p><em>Some technical details:</em><br />
+There are two main programming languages which are used to write iOS applications: <a href="https://en.wikipedia.org/wiki/Objective-C">Objective-C</a> and <a href="https://en.wikipedia.org/wiki/Swift_(programming_language)">Swift</a>.<br />
+In order for an iOS app to support Swift code, it must include something called the <a href="https://github.com/apple/swift/blob/master/docs/Runtime.md">Swift runtime</a> which is just a collection of frameworks conveniently packaged under a folder called &#8220;Frameworks&#8221; inside of the&nbsp;<span>iOS App Store Package (.IPA) file</span>. For a more detailed look at the inner-workings of an .IPA file, check out <a href="https://blog.razb.me/pulling-apart-an-ios-app/">this post</a>. Taking a look at Taylor&#8217;s app, it does not contain the Swift runtime, and therefore it cannot contain any Swift code.</p>
+<p>Quite a missed opportunity if you ask me.</p>
+<p>I guess the developers just weren&#8217;t <em>ready for it</em>.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://blog.razb.me/taylor-swifts-new-app-the-swift-life-was-not-written-in-swift/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+	<post-id xmlns="com-wordpress:feed-additions:1">135</post-id>	</item>
+		<item>
+		<title>kSecAttrAccessGroupToken &#8211; A workaround for the keychain autodelete behaviour found in iOS 10.3 beta2</title>
+		<link>https://blog.razb.me/ksecattraccessgrouptoken-a-workaround-for-the-keychain-autodelete-behaviour-found-in-ios-10-3-beta2/</link>
+		<comments>https://blog.razb.me/ksecattraccessgrouptoken-a-workaround-for-the-keychain-autodelete-behaviour-found-in-ios-10-3-beta2/#respond</comments>
+		<pubDate>Tue, 21 Feb 2017 19:27:12 +0000</pubDate>
+		<dc:creator><![CDATA[Raz]]></dc:creator>
+				<category><![CDATA[iOS]]></category>
+
+		<guid isPermaLink="false">http://razb.me/?p=109</guid>
+		<description><![CDATA[December 27, 2017 update: According to this post on the Apple Developer forums regarding the issue discussed in this topic, This is a bug in the beta that should already be fixed by the time you read this. kSecAttrAccessGroupToken is writable only by CryptoTokenKit smart card drivers. Apps can query<a class="moretag" href="https://blog.razb.me/ksecattraccessgrouptoken-a-workaround-for-the-keychain-autodelete-behaviour-found-in-ios-10-3-beta2/"> Read more&#8230;</a>]]></description>
+				<content:encoded><![CDATA[<p><strong>December 27, 2017 update:</strong></p>
+<p>According to <a href="https://forums.developer.apple.com/thread/72271#224455">this post on the Apple Developer forums</a> regarding the issue discussed in this topic,</p>
+<blockquote><p><span>This is a bug in the beta that should already be fixed by the time you read this.</span></p>
+<p><span>kSecAttrAccessGroupToken is writable only by CryptoTokenKit smart card drivers. Apps can query the keychain using that attribute in order to find items stored on a particular smart card. This attribute is not for any other use.</span></p></blockquote>
+<p>It appears as though the <em><span>kSecAttrAccessGroupToken</span></em> access group was never meant to be writable by any app outside of <em>CryptoTokenKit</em>. This means that normal apps like yours and mine cannot make use of this access group for the purpose of writing our own custom data to it.</p>
+<p>It&#8217;s also worth noting that the keychain autodelete behaviour which was observed in the iOS 10.3 beta did not end up making it into the public releases. So, for the time being, our beloved keychain continues to persist data beyond app deletion.</p>
+<p><strong>Original post below:</strong></p>
+<p>On February 7th, 2017, Apple released iOS 10.3 Beta2 to the public, and with that came some changes to the keychain.</p>
+<p>The keychain was introduced to iOS devices with the release of iOS 7. The intention of the keychain is to allow a user to securely store login credentials to any number of services so as to not have to type them in every time. Safari uses the iOS keychain and prompts users to save their credentials whenever they login to any websites. However, the keychain is also available to developers. This means that it is possible to store passwords, certificates, and keys without any user interaction.</p>
+<p>One of the (<a href="https://forums.developer.apple.com/message/112523#112523">potentially unintended</a>) side-effects of the keychain is that anything stored inside of it would persist even after uninstalling the app. This means that anything an app stores in the keychain would potentially live beyond the app itself, and the next time the app is installed and launched, it could read from the keychain and continue as if nothing ever happened.</p>
+<p>This property of the keychain is quite useful and heavily relied upon by developers, however, it seems as though this might change with iOS 10.3. As outlined in<a href="https://forums.developer.apple.com/message/210559"> this post</a> on the Apple developer forums, keychain items are now automatically deleted when the app is deleted. For the purpose of keychain access groups, the keychain items are deleted when the last app in that access group is deleted.</p>
+<p>This can be problematic for many apps which rely on the persistence of the keychain in order for their features to work. This was certainly true for me, so I decided to go looking for a workaround.</p>
+<p>That is when I stumbled upon the constant <em>kSecAttrAccessGroupToken</em>, of which there does not seem to be much information about on the Internet. Here is the documentation found with this constant:</p><pre class="crayon-plain-tag">/*!
+     @enum kSecAttrAccessGroup Value Constants
+     @constant kSecAttrAccessGroupToken Represents well-known access group
+         which contains items provided by external token (typically smart card).
+         This may be used as a value for kSecAttrAccessGroup attribute. Every
+         application has access to this access group so it is not needed to
+         explicitly list it in keychain-access-groups entitlement, but application
+         must explicitly state this access group in keychain queries in order to
+         be able to access items from external tokens.
+*/
+extern const CFStringRef kSecAttrAccessGroupToken
+    __OSX_AVAILABLE_STARTING(__MAC_10_12, __IPHONE_10_0);</pre><p>So, it would seem as though there is an access group, introduced with iOS 10, which all apps on the phone have read/write access to. If this is the case, then anything stored within that access group should persist forever, since any app currently installed may want to read from it in the future.</p>
+<p>After testing my hypothesis, this indeed seems to be the case. Saving keychain items with the <em>kSecAttrAccessGroupToken</em> access group persists beyond app deletion. I wrote some sample code demonstrating this <a href="https://gist.github.com/Raztor0/34ad0e23a410c33526c9fa1b6e8d281c">here</a>.</p>
+<p>So, in order to preserve existing keychain functionality and have entries persist beyond app deletion, a simple work around could be to use this access group. However, there is a caveat:</p>
+<p>Since any app on the system can freely read and write to this access group, it is important to consider any security side effects this might have for your app. If you are storing sensitive information in the keychain, it could be worth encrypting keychain entries yourself before saving it off to the keychain.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://blog.razb.me/ksecattraccessgrouptoken-a-workaround-for-the-keychain-autodelete-behaviour-found-in-ios-10-3-beta2/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+	<post-id xmlns="com-wordpress:feed-additions:1">109</post-id>	</item>
+	</channel>
+</rss>

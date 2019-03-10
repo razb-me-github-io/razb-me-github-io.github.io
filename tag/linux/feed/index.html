@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+>
+
+<channel>
+	<title>linux &#8211; Raz</title>
+	<atom:link href="https://blog.razb.me/tag/linux/feed/" rel="self" type="application/rss+xml" />
+	<link>https://blog.razb.me</link>
+	<description>Computer stuff</description>
+	<lastBuildDate>Sun, 13 Jan 2019 01:25:31 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.0.3</generator>
+
+<image>
+	<url>https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/04/cropped-Untitled.png?fit=32%2C32&#038;ssl=1</url>
+	<title>linux &#8211; Raz</title>
+	<link>https://blog.razb.me</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">108306310</site>	<item>
+		<title>Minecraft behind a firewall</title>
+		<link>https://blog.razb.me/networking-minecraft-on-an-inaccessible-server/</link>
+		<comments>https://blog.razb.me/networking-minecraft-on-an-inaccessible-server/#respond</comments>
+		<pubDate>Wed, 16 Mar 2016 06:02:28 +0000</pubDate>
+		<dc:creator><![CDATA[Raz]]></dc:creator>
+				<category><![CDATA[Networking]]></category>
+		<category><![CDATA[linux]]></category>
+		<category><![CDATA[minecraft]]></category>
+		<category><![CDATA[networking]]></category>
+		<category><![CDATA[private]]></category>
+		<category><![CDATA[reverse]]></category>
+		<category><![CDATA[servers]]></category>
+		<category><![CDATA[ssh]]></category>
+		<category><![CDATA[tunnel]]></category>
+		<category><![CDATA[virtual]]></category>
+		<category><![CDATA[vps]]></category>
+
+		<guid isPermaLink="false">http://razb.me/?p=28</guid>
+		<description><![CDATA[Several months ago I was given access to a free, moderately powerful virtual private server (VPS) with the catch that the server sat behind a firewall which denied all incoming connections. The company hosting the VPS provided a web interface for accessing the server via a VNC connection which they<a class="moretag" href="https://blog.razb.me/networking-minecraft-on-an-inaccessible-server/"> Read more&#8230;</a>]]></description>
+				<content:encoded><![CDATA[<p>Several months ago I was given access to a free, moderately powerful virtual private server (VPS) with the catch that the server sat behind a firewall which denied all incoming connections. The company hosting the VPS provided a web interface for accessing the server via a VNC connection which they routed internally. This was the only way to interact with the server.</p>
+<p>Upon getting access to the VPS I immediately tried the first thing anyone would try, and that of course was running a Minecraft server on it. I was very excited about the possibility of hosting a completely free Minecraft server for my friends and I to enjoy, until I realized that it was impossible to connect to the server from the Internet.</p>
+<p>So, I gave up and ran my Minecraft server on AWS instead. Thanks for reading.</p>
+<p>Just kidding. I came across SSH reverse tunnels instead.</p>
+<p>SSH is an incredibly powerful tool which is capable of doing a lot more than just being a secure shell to a remote machine. One of the additional features it has is reverse tunnelling.</p>
+<p>Imagine you have two machines: MachineA, and MachineB.<br />
+MachineA can create outgoing connections, but can not accept incoming connections.<br />
+MachineB accepts both incoming and outgoing connections.</p>
+<p>MachineA establishes an SSH connection to MachineB, and configures MachineB to forward all requests to port 8080 over to MachineA&#8217;s port 2020 (using the same SSH connection).</p>
+<p>It looks something like this:</p>
+<p>MachineB &lt;&#8212;SSH&#8212;- MachineA // Establish the connection MachineB:8080 &#8212;SSH&#8212;&gt; MachineA:2020 // Port forwarding over the established connection</p>
+<p>This works fine because MachineA is not relying on any incoming connections made directly to it, but rather is able to accept incoming connections which arrive at MachineB. Now all I needed was another server which is not behind a firewall to act as MachineB.</p>
+<p>Fortunately I have several small, inexpensive servers which were perfect for the job.</p>
+<p>Using this functionality of SSH, I was able to piggy back one of my weaker servers to act as a proxy for the stronger server which was running Minecraft. My friends would connect to my weak server port 8080, and get forwarded over the SSH tunnel to the Minecraft server sitting behind a firewall on port 2020.</p>
+<p>Alas, we were finally able to play Minecraft.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://blog.razb.me/networking-minecraft-on-an-inaccessible-server/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+	<post-id xmlns="com-wordpress:feed-additions:1">28</post-id>	</item>
+	</channel>
+</rss>

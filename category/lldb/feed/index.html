@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+>
+
+<channel>
+	<title>LLDB &#8211; Raz</title>
+	<atom:link href="https://blog.razb.me/category/lldb/feed/" rel="self" type="application/rss+xml" />
+	<link>https://blog.razb.me</link>
+	<description>Computer stuff</description>
+	<lastBuildDate>Sun, 13 Jan 2019 01:25:31 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.0.3</generator>
+
+<image>
+	<url>https://i2.wp.com/blog.razb.me/wp-content/uploads/2018/04/cropped-Untitled.png?fit=32%2C32&#038;ssl=1</url>
+	<title>LLDB &#8211; Raz</title>
+	<link>https://blog.razb.me</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">108306310</site>	<item>
+		<title>[LLDB/Xcode] Manipulating the currently executing line</title>
+		<link>https://blog.razb.me/manipulating-the-currently-executing-line/</link>
+		<comments>https://blog.razb.me/manipulating-the-currently-executing-line/#respond</comments>
+		<pubDate>Fri, 25 Mar 2016 05:17:38 +0000</pubDate>
+		<dc:creator><![CDATA[Raz]]></dc:creator>
+				<category><![CDATA[LLDB]]></category>
+		<category><![CDATA[Objective-C]]></category>
+
+		<guid isPermaLink="false">http://razb.me/?p=68</guid>
+		<description><![CDATA[Have you ever wanted to quickly see the result of a particular code path, but realized you had to stop the app, comment out or modify some code, and run the app again so that the new code follows a different path? There may be a quicker way to achieve<a class="moretag" href="https://blog.razb.me/manipulating-the-currently-executing-line/"> Read more&#8230;</a>]]></description>
+				<content:encoded><![CDATA[<p>Have you ever wanted to quickly see the result of a particular code path, but realized you had to stop the app, comment out or modify some code, and run the app again so that the new code follows a different path? There may be a quicker way to achieve this. Consider the following example:</p>
+<p><img class="aligncenter" src="http://i0.wp.com/razb.me/wp-content/uploads/2016/03/Screen-Shot-2016-03-24-at-9.51.46-PM.png?w=648" alt="" /></p>
+<p>The result is YES under normal circumstances, but we want to test what happens if the result was ever NO.</p>
+<p>One way to do that is by dragging the little green arrow next to the breakpoint marker down into the else statement so that it looks like this:</p>
+<p><img class="aligncenter" src="https://i1.wp.com/razb.me/wp-content/uploads/2016/03/Screen-Shot-2016-03-24-at-10.12.06-PM.png?w=750" alt="" data-recalc-dims="1" /></p>
+<p>The result is YES, but we have managed to get ourselves into the else condition to test what happens going down that code path.</p>
+<p>Upon dragging the green arrow, Xcode will display the following error:</p>
+<p><img class="aligncenter" src="https://i0.wp.com/razb.me/wp-content/uploads/2016/03/Screen-Shot-2016-03-24-at-9.52.18-PM.png?w=750" alt="" data-recalc-dims="1" /></p>
+<p>Take a second to read the error and understand it. Then, press &#8216;Move&#8217; to move the instruction pointer. Now, simply resume execution of the program. Voila, you have just tested your alternative code path without stopping, commenting out or modifying the code, and restarting the app.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://blog.razb.me/manipulating-the-currently-executing-line/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+	<post-id xmlns="com-wordpress:feed-additions:1">68</post-id>	</item>
+	</channel>
+</rss>
